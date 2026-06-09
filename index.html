@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chris Howard</title>
+<meta name="description" content="Chris Howard — builder, coach, and founder of Chow.Works. Tech as a force for good, out of Washington, DC." />
+<meta name="theme-color" content="#0a0b0f" />
+<meta property="og:title" content="Chris Howard" />
+<meta property="og:description" content="Builder, coach, founder of Chow.Works. Tech as a force for good, out of Washington, DC." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://chrishoward.fyi/" />
+<link rel="canonical" href="https://chrishoward.fyi/" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0a0b0f;
+    --bg-line:   rgba(255,255,255,0.08);
+    --fg:        #e9ebef;
+    --muted:     rgba(233,235,239,0.46);
+    --muted-2:   rgba(233,235,239,0.30);
+    --accent:    #8e9bff;   /* restrained cool indigo — .fyi identity */
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  html, body { height: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* faint vertical "gutter" like a code editor margin */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; bottom: 0;
+    left: max(24px, calc((100% - 760px) / 2 - 1px));
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--bg-line) 12%, var(--bg-line) 88%, transparent);
+    pointer-events: none;
+  }
+  @media (max-width: 680px) { body::before { display: none; } }
+
+  .wrap {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(28px, 6vw, 56px) clamp(22px, 5vw, 40px);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── top bar ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .topbar .path { letter-spacing: 0.02em; }
+  .topbar .path .slash { color: var(--accent); }
+  .gives-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    padding: 5px 10px;
+    border: 1px solid var(--bg-line);
+    border-radius: 7px;
+    transition: color .18s, border-color .18s, background .18s;
+    white-space: nowrap;
+  }
+  .gives-link:hover, .gives-link:focus-visible {
+    color: var(--fg);
+    border-color: rgba(232,184,115,0.5);
+    background: rgba(232,184,115,0.06);
+    outline: none;
+  }
+
+  /* ── hero / identifier ── */
+  .hero { margin-top: clamp(48px, 14vh, 130px); }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .name {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 11vw, 5.2rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+  }
+  .cursor {
+    display: inline-block;
+    width: 0.5ch;
+    height: 0.92em;
+    margin-left: 0.06em;
+    background: var(--accent);
+    transform: translateY(0.08em);
+    animation: blink 1.15s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .tagline {
+    margin-top: 26px;
+    font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+    color: var(--fg);
+    max-width: 30ch;
+    font-weight: 500;
+  }
+  .sub {
+    margin-top: 14px;
+    font-size: 0.98rem;
+    color: var(--muted);
+    max-width: 52ch;
+    line-height: 1.65;
+  }
+
+  /* ── section heading ── */
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: clamp(46px, 9vh, 84px) 0 6px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+  }
+  .sec-head::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--bg-line);
+  }
+
+  /* ── link rows ── */
+  .rows { display: flex; flex-direction: column; }
+  .row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 16px 4px;
+    text-decoration: none;
+    color: var(--fg);
+    border-bottom: 1px solid var(--bg-line);
+    transition: padding-left .2s ease;
+  }
+  .row:hover, .row:focus-visible { padding-left: 12px; outline: none; }
+  .row:hover .row-name, .row:focus-visible .row-name { color: var(--accent); }
+  .row:hover .arrow, .row:focus-visible .arrow { transform: translate(3px,-3px); color: var(--accent); }
+  .row-name {
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: color .18s;
+    flex-shrink: 0;
+  }
+  .row-desc {
+    color: var(--muted);
+    font-size: 0.92rem;
+    flex: 1;
+  }
+  .row-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted-2);
+    border: 1px solid var(--bg-line);
+    border-radius: 5px;
+    padding: 2px 7px;
+    white-space: nowrap;
+    align-self: center;
+  }
+  .arrow {
+    font-family: var(--mono);
+    color: var(--muted-2);
+    transition: transform .2s ease, color .18s;
+    align-self: center;
+  }
+
+  /* ── contact ── */
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 8px;
+    margin-top: 14px;
+  }
+  .chip {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--fg);
+    text-decoration: none;
+    padding: 8px 14px;
+    border: 1px solid var(--bg-line);
+    border-radius: 8px;
+    transition: border-color .18s, color .18s, background .18s;
+  }
+  .chip:hover, .chip:focus-visible {
+    border-color: rgba(142,155,255,0.55);
+    background: rgba(142,155,255,0.07);
+    color: #fff;
+    outline: none;
+  }
+
+  /* ── footer ── */
+  footer {
+    margin-top: auto;
+    padding-top: clamp(48px, 10vh, 90px);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted-2);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--fg); }
+
+  /* ── load animation ── */
+  .stagger { opacity: 0; transform: translateY(8px); animation: rise .55s ease forwards; }
+  .stagger:nth-child(1) { animation-delay: .05s; }
+  .hero   { animation: rise .6s ease .12s forwards; opacity: 0; transform: translateY(8px); }
+  .reveal { opacity: 0; transform: translateY(8px); animation: rise .55s ease forwards; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .hero, .reveal, .stagger { opacity: 1; transform: none; }
+    .cursor { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="topbar stagger">
+      <span class="path"><span class="slash">//</span> chrishoward.fyi</span>
+      <a class="gives-link" href="https://chrishoward.gives">.gives &nbsp;→</a>
+    </div>
+
+    <header class="hero">
+      <p class="eyebrow">// builder · coach · washington, dc</p>
+      <h1 class="name">Chris<br>Howard<span class="cursor" aria-hidden="true"></span></h1>
+      <p class="tagline">I build things, and I help people build things.</p>
+      <p class="sub">Founder of Chow.Works. I ship software for non-profits and education, coach engineers through interviews and career moves, and turn rough app ideas into working products.</p>
+    </header>
+
+    <!-- WORK / VENTURES -->
+    <h2 class="sec-head reveal" style="animation-delay:.22s">work &amp; ventures</h2>
+    <nav class="rows reveal" style="animation-delay:.28s" aria-label="Work and ventures">
+      <a class="row" href="https://chow.works" target="_blank" rel="noopener">
+        <span class="row-name">Chow.Works</span>
+        <span class="row-desc">Tech for social good — DC studio for non-profits &amp; education</span>
+        <span class="row-tag">founder</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="row" href="https://interviewdifferently.com" target="_blank" rel="noopener">
+        <span class="row-name">Interview Differently</span>
+        <span class="row-desc">AI-powered interview simulations — see how you think under pressure</span>
+        <span class="row-tag">founder</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="row" href="https://callback.coach" target="_blank" rel="noopener">
+        <span class="row-name">Callback</span>
+        <span class="row-desc">1:1 interview coaching and prep — the human side of the offer</span>
+        <span class="row-tag">founder</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </nav>
+
+    <!-- WHAT I DO / SERVICES -->
+    <h2 class="sec-head reveal" style="animation-delay:.32s">work with me</h2>
+    <nav class="rows reveal" style="animation-delay:.36s" aria-label="Services">
+      <a class="row" href="https://chow.works/build" target="_blank" rel="noopener">
+        <span class="row-name">Build it</span>
+        <span class="row-desc">Turn your app idea or project into something real</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="row" href="https://callback.coach/interview-prep" target="_blank" rel="noopener">
+        <span class="row-name">Interview prep</span>
+        <span class="row-desc">Get ready for technical interviews, end to end</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="row" href="https://callback.coach/coaching" target="_blank" rel="noopener">
+        <span class="row-name">Tech coaching</span>
+        <span class="row-desc">Career and skills coaching for engineers</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </nav>
+
+    <!-- ELSEWHERE -->
+    <h2 class="sec-head reveal" style="animation-delay:.4s">reach me</h2>
+    <div class="contact reveal" style="animation-delay:.44s">
+      <a class="chip" href="mailto:contact@chrishoward.fyi">email</a>
+      <a class="chip" href="https://github.com/ludakhris" target="_blank" rel="noopener">github</a>
+      <a class="chip" href="https://www.linkedin.com/in/christopherghoward/" target="_blank" rel="noopener">linkedin</a>
+      <a class="chip" href="https://chrishoward.gives">.gives</a>
+    </div>
+
+    <footer class="reveal" style="animation-delay:.5s">
+      <span>© <span id="yr"></span> Chris Howard</span>
+      <a href="https://chrishoward.gives">// philanthropy → chrishoward.gives</a>
+    </footer>
+
+  </div>
+  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
