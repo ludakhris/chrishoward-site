@@ -25,6 +25,7 @@
     --accent:    #e8b873;   /* warm amber — .gives identity */
     --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     --sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --col:  820px;
   }
 
   html, body { height: 100%; }
@@ -43,7 +44,7 @@
     content: '';
     position: fixed;
     top: 0; bottom: 0;
-    left: max(24px, calc((100% - 760px) / 2 - 1px));
+    left: max(24px, calc((100% - var(--col)) / 2 - 1px));
     width: 1px;
     background: linear-gradient(180deg, transparent, var(--bg-line) 12%, var(--bg-line) 88%, transparent);
     pointer-events: none;
@@ -52,7 +53,7 @@
 
   .wrap {
     width: 100%;
-    max-width: 760px;
+    max-width: var(--col);
     margin: 0 auto;
     padding: clamp(28px, 6vw, 56px) clamp(22px, 5vw, 40px);
     flex: 1;
@@ -92,7 +93,7 @@
   .name {
     font-family: var(--mono);
     font-weight: 700;
-    font-size: clamp(2.6rem, 11vw, 5.2rem);
+    font-size: clamp(2.6rem, 9vw, 6rem);
     line-height: 0.96;
     letter-spacing: -0.03em;
     color: var(--fg);
@@ -178,6 +179,19 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .hero, .reveal, .stagger { opacity: 1; transform: none; }
+  }
+
+  /* ── large screens: more presence, still a column ── */
+  @media (min-width: 1500px) {
+    :root { --col: 1040px; }
+    .name    { font-size: 7rem; }
+    .tagline { font-size: 1.55rem; }
+    .sub     { font-size: 1.1rem; }
+    .hero    { margin-top: clamp(80px, 16vh, 190px); }
+  }
+  @media (min-width: 1920px) {
+    :root  { --col: 1180px; }
+    .name  { font-size: 7.75rem; }
   }
 </style>
 </head>
