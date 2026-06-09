@@ -7,7 +7,7 @@
 <meta name="description" content="Chris Howard — builder, coach, and founder of Chow.Works. Tech as a force for good, out of Washington, DC." />
 <meta name="theme-color" content="#0a0b0f" />
 <meta property="og:title" content="Chris Howard" />
-<meta property="og:description" content="Software Engineering Manager at Amazon. Founder of Chow.Works — builder, coach, tech for social good." />
+<meta property="og:description" content="Software Engineering Manager at Amazon and CS professor at UMGC. Founder of Chow.Works — builder, coach, tech for social good." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://chrishoward.fyi/" />
 <meta property="og:image" content="https://chrishoward.fyi/og-image.png" />
@@ -256,6 +256,13 @@
     .cursor { opacity: 1; }
   }
 
+  /* ── teaching ── */
+  .teach-lead { font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 18px; max-width: 56ch; }
+  .course-list { list-style: none; display: grid; grid-template-columns: 1fr; gap: 11px 32px; }
+  .course-list li { position: relative; padding-left: 22px; font-size: 1rem; color: var(--fg); line-height: 1.4; }
+  .course-list li::before { content: '\203A'; position: absolute; left: 2px; color: var(--muted-2); font-family: var(--mono); }
+  @media (min-width: 640px) { .course-list { grid-template-columns: 1fr 1fr; } }
+
   /* ── large screens: wider column, restrained height ── */
   @media (min-width: 1500px) {
     :root { --col: 1040px; }
@@ -279,10 +286,10 @@
     </div>
 
     <header class="hero">
-      <p class="eyebrow"><span class="slash">//</span> builder · coach · washington, dc</p>
+      <p class="eyebrow"><span class="slash">//</span> builder · coach · professor · washington, dc</p>
       <h1 class="name">Chris<br>Howard<span class="cursor" aria-hidden="true"></span></h1>
       <p class="tagline">I build software — and builders.</p>
-      <p class="sub">Software Engineering Manager at Amazon, previously Raytheon and NASA. Founder of Chow.Works — software for non-profits and education, interview and career coaching for engineers, and rough ideas built into working products.</p>
+      <p class="sub">Software Engineering Manager at Amazon, previously Raytheon and NASA. Computer science professor at the University of Maryland Global Campus since 2015. Founder of Chow.Works — software for non-profits and education, interview and career coaching for engineers, and rough ideas built into working products.</p>
     </header>
 
     <!-- WORK / VENTURES -->
@@ -329,15 +336,29 @@
     </nav>
 
     <!-- ELSEWHERE -->
-    <h2 class="sec-head reveal" style="animation-delay:.4s">reach me</h2>
-    <div class="contact reveal" style="animation-delay:.44s">
+    <!-- TEACHING -->
+    <h2 class="sec-head reveal" style="animation-delay:.42s">teaching</h2>
+    <div class="teach reveal" style="animation-delay:.46s">
+      <p class="teach-lead">Undergraduate courses I've taught:</p>
+      <ul class="course-list">
+        <li>Intro to Object Oriented Programming (Java)</li>
+        <li>Building Python Applications</li>
+        <li>Advanced Programming Languages</li>
+        <li>Web Application Security Hardening (OWASP Top 10)</li>
+        <li>Software Engineering Principles &amp; Techniques</li>
+      </ul>
+    </div>
+
+    <!-- ELSEWHERE -->
+    <h2 class="sec-head reveal" style="animation-delay:.5s">reach me</h2>
+    <div class="contact reveal" style="animation-delay:.54s">
       <a class="chip" href="mailto:contact@chrishoward.fyi">email</a>
       <a class="chip" href="https://github.com/ludakhris" target="_blank" rel="noopener">github</a>
       <a class="chip" href="https://www.linkedin.com/in/christopherghoward/" target="_blank" rel="noopener">linkedin</a>
       <a class="chip" href="https://chrishoward.gives">.gives</a>
     </div>
 
-    <footer class="reveal" style="animation-delay:.5s">
+    <footer class="reveal" style="animation-delay:.58s">
       <span>© <span id="yr"></span> Chris Howard</span>
       <a href="https://chrishoward.gives">// philanthropy → chrishoward.gives</a>
     </footer>
