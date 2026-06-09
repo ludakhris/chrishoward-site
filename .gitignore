@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# Personal deploy notes — never publish
+DEPLOY-INSTRUCTIONS.md
+
+# Local env, if you ever add one
+.env

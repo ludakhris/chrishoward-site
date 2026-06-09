@@ -181,17 +181,17 @@
     .hero, .reveal, .stagger { opacity: 1; transform: none; }
   }
 
-  /* ── large screens: more presence, still a column ── */
+  /* ── large screens: wider column, restrained height ── */
   @media (min-width: 1500px) {
     :root { --col: 1040px; }
-    .name    { font-size: 7rem; }
-    .tagline { font-size: 1.55rem; }
-    .sub     { font-size: 1.1rem; }
-    .hero    { margin-top: clamp(80px, 16vh, 190px); }
+    .name    { font-size: 5.5rem; }
+    .tagline { font-size: 1.4rem; }
+    .sub     { font-size: 1.04rem; }
+    .hero    { margin-top: clamp(40px, 6vh, 80px); }
   }
   @media (min-width: 1920px) {
     :root  { --col: 1180px; }
-    .name  { font-size: 7.75rem; }
+    .name  { font-size: 6rem; }
   }
 </style>
 </head>
