@@ -74,7 +74,7 @@
     color: var(--muted);
   }
   .topbar .path { letter-spacing: 0.02em; }
-  .topbar .path .slash { color: var(--accent); }
+  .topbar .path .slash, .eyebrow .slash { color: var(--accent); }
   .gives-link {
     color: var(--muted);
     text-decoration: none;
@@ -147,6 +147,7 @@
     text-transform: uppercase;
     color: var(--muted-2);
   }
+  .sec-head::before { content: ''; width: 5px; height: 5px; border-radius: 1px; background: var(--accent); flex: none; }
   .sec-head::after {
     content: '';
     flex: 1;
@@ -272,10 +273,10 @@
     </div>
 
     <header class="hero">
-      <p class="eyebrow">// builder · coach · washington, dc</p>
+      <p class="eyebrow"><span class="slash">//</span> builder · coach · washington, dc</p>
       <h1 class="name">Chris<br>Howard<span class="cursor" aria-hidden="true"></span></h1>
-      <p class="tagline">I build things, and I help people build things.</p>
-      <p class="sub">Founder of Chow.Works. I ship software for non-profits and education, coach engineers through interviews and career moves, and turn rough app ideas into working products.</p>
+      <p class="tagline">I build software — and builders.</p>
+      <p class="sub">Software Engineering Manager at Amazon, previously Raytheon and NASA. Founder of Chow.Works — software for non-profits and education, interview and career coaching for engineers, and rough ideas built into working products.</p>
     </header>
 
     <!-- WORK / VENTURES -->
