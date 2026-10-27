@@ -17,6 +17,9 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://chrishoward.fyi/og-image.png" />
 <link rel="canonical" href="https://chrishoward.fyi/" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
@@ -195,25 +198,56 @@
   .btn.primary { background: var(--accent); color: #0a0b0f; border-color: var(--accent); }
   .btn.primary:hover, .btn.primary:focus-visible { background: #a6b0ff; box-shadow: 0 8px 30px -8px rgba(142,155,255,0.7); }
 
-  /* ── proof strip ── */
-  .proof {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    margin-top: clamp(44px, 8vh, 72px);
+  /* ── impact ── */
+  .impact { margin-top: clamp(48px, 9vh, 80px); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .stat {
+    padding: 18px 18px 16px;
     border: 1px solid var(--bg-line);
     border-radius: 12px;
-    background: rgba(15,17,23,0.6);
+    background: linear-gradient(180deg, rgba(142,155,255,0.06), rgba(15,17,23,0.4));
+  }
+  .stat b {
+    display: block;
+    font-family: var(--mono);
+    font-size: clamp(1.7rem, 4vw, 2.3rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    background: linear-gradient(180deg, #fff, var(--accent));
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+  .stat span { display: block; margin-top: 10px; font-size: 0.84rem; color: var(--muted); line-height: 1.45; }
+  .wins { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .wins li {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    padding: 7px 11px;
+    border: 1px solid var(--bg-line);
+    border-radius: 999px;
+  }
+  .wins li::before { content: '✓ '; color: var(--green); }
+  .marquee {
+    position: relative;
+    margin-top: 22px;
     overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   }
-  .proof div { padding: 16px 18px; border-left: 1px solid var(--bg-line); }
-  .proof div:first-child { border-left: 0; }
-  .proof b { display: block; font-family: var(--mono); font-size: 1.25rem; font-weight: 700; color: var(--fg); letter-spacing: -0.02em; }
-  .proof span { font-size: 0.82rem; color: var(--muted); }
-  @media (max-width: 680px) {
-    .proof { grid-template-columns: 1fr 1fr; }
-    .proof div:nth-child(3) { border-left: 0; }
-    .proof div:nth-child(n+3) { border-top: 1px solid var(--bg-line); }
+  .marquee-track { display: flex; width: max-content; animation: slide 38s linear infinite; }
+  .marquee-track span {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted-2);
+    white-space: nowrap;
+    padding: 0 22px;
   }
+  .marquee-track span::before { content: '// '; color: var(--accent); opacity: .7; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+  @media (max-width: 760px) { .stats { grid-template-columns: 1fr 1fr; } }
 
   /* ── section heading ── */
   .sec-head {
@@ -259,6 +293,9 @@
   .svc p { font-size: 0.9rem; color: var(--muted); line-height: 1.55; flex: 1; }
   .svc .go { font-family: var(--mono); font-size: 12px; color: var(--muted); transition: color .18s; }
   .svc:hover .go, .svc:focus-visible .go { color: var(--accent); }
+  .svc.gives .svc-num { color: var(--amber); }
+  .svc.gives:hover, .svc.gives:focus-visible { border-color: rgba(232,184,115,0.5); background: linear-gradient(180deg, rgba(232,184,115,0.08), rgba(255,255,255,0)); }
+  .svc.gives:hover .go, .svc.gives:focus-visible .go { color: var(--amber); }
   @media (max-width: 760px) { .services { grid-template-columns: 1fr; } }
 
   /* ── featured projects ── */
@@ -274,6 +311,21 @@
   }
   .proj:hover { border-color: rgba(142,155,255,0.45); transform: translateY(-2px); box-shadow: 0 18px 40px -24px rgba(142,155,255,0.45); }
   .proj.wide { grid-column: span 2; }
+  .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--bg-line); background: #11131a; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .5s ease; }
+  .proj:hover .shot img { transform: scale(1.025); }
+  .shot .emoji {
+    position: absolute; left: 14px; bottom: 14px;
+    width: 42px; height: 42px; display: grid; place-items: center;
+    font-size: 22px;
+    border-radius: 11px;
+    background: rgba(10,11,15,0.82);
+    border: 1px solid var(--bg-line-2);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  }
+  .proj.wide .shot { aspect-ratio: auto; height: 100%; min-height: 300px; border-bottom: 0; border-left: 1px solid var(--bg-line); }
+  .proj.wide .shot img { object-position: left top; }
+  .proj.wide .split { display: grid; grid-template-columns: 1fr 1.1fr; flex: 1; }
   .tab {
     display: flex;
     align-items: center;
@@ -325,6 +377,8 @@
     .projects { grid-template-columns: 1fr; }
     .proj.wide { grid-column: auto; }
     .proj.wide .cols { grid-template-columns: 1fr; }
+    .proj.wide .split { grid-template-columns: 1fr; }
+    .proj.wide .shot { order: -1; min-height: 0; aspect-ratio: 16 / 10; border-left: 0; border-bottom: 1px solid var(--bg-line); }
   }
 
   /* ── experience: git log ── */
@@ -383,15 +437,20 @@
   .cta .hero-cta { margin-top: 24px; }
   .contact { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--bg-line); }
   .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-family: var(--mono);
     font-size: 12.5px;
-    color: var(--muted);
+    color: var(--fg);
     text-decoration: none;
-    padding: 6px 12px;
-    border: 1px solid var(--bg-line);
-    border-radius: 8px;
+    padding: 8px 14px 8px 10px;
+    border: 1px solid rgba(142,155,255,0.25);
+    background: rgba(142,155,255,0.05);
+    border-radius: 9px;
     transition: border-color .18s, color .18s, background .18s;
   }
+  .chip svg { width: 16px; height: 16px; flex: none; fill: var(--accent); }
   .chip:hover, .chip:focus-visible { border-color: rgba(142,155,255,0.55); background: var(--accent-a); color: #fff; outline: none; }
 
   /* ── footer ── */
@@ -418,6 +477,7 @@
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .hero, .reveal { opacity: 1; transform: none; }
+    .marquee-track { flex-wrap: wrap; width: auto; }
     .cursor { opacity: 1; }
   }
 
@@ -452,41 +512,56 @@
       <p class="eyebrow"><span class="slash">//</span> builder · coach · professor · washington, dc</p>
       <h1 class="name">Chris<br>Howard<span class="cursor" aria-hidden="true"></span></h1>
       <p class="tagline">I build software — <em>and the engineers who build it.</em></p>
-      <p class="sub">Software Engineering Manager at Amazon, previously Raytheon and NASA. Computer science professor at UMGC since 2015. Through Chow.Works I turn rough ideas into working products for non-profits, education and small businesses, and I coach engineers through interviews and careers.</p>
+      <p class="sub">Software Development Manager at AWS with 20+ years of building software, from NASA Goddard to Raytheon to the cloud. I teach computer science at UMGC, have taught with Code Differently, and lead interview prep for Amazon's Black Employee Network. Through Chow.Works I turn rough ideas into working products for education, non-profits and small businesses.</p>
       <div class="hero-cta">
-        <a class="btn primary" href="mailto:contact@chrishoward.fyi?subject=I%20have%20something%20to%20build">Pitch me your idea →</a>
-        <a class="btn" href="mailto:contact@chrishoward.fyi?subject=Interview%20coaching">Get interview coaching</a>
-      </div>
-
-      <div class="proof">
-        <div><b>Amazon</b><span>eng manager · ex-Raytheon, NASA</span></div>
-        <div><b>2015</b><span>teaching CS at UMGC since</span></div>
-        <div><b>5</b><span>products shipped or in build</span></div>
-        <div><b>DC</b><span>tech for social good</span></div>
+        <a class="btn primary" href="mailto:contact@chrishoward.fyi?subject=Ship%20my%20idea">./ship-my-idea →</a>
+        <a class="btn" href="mailto:contact@chrishoward.fyi?subject=Help%20me%20land%20the%20offer">./land-the-offer</a>
       </div>
     </header>
 
+    <!-- IMPACT -->
+    <section class="impact reveal" aria-label="Impact">
+      <div class="stats">
+        <div class="stat"><b>20+</b><span>years shipping software, NASA to AWS</span></div>
+        <div class="stat"><b>200+</b><span>engineers hired and upskilled through a program I built</span></div>
+        <div class="stat"><b>13</b><span>first-of-their-kind cloud launches, region builds 38% faster</span></div>
+        <div class="stat"><b>18</b><span>agencies running on a platform I scaled from one team</span></div>
+      </div>
+      <ul class="wins">
+        <li>award-winning first-in-agency cloud migration</li>
+        <li>grew a federal program 3x</li>
+        <li>built an AWS practice to 40% of company revenue</li>
+        <li>e-signature platform: 5 → ~2,000 agreements</li>
+      </ul>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>NASA Goddard</span><span>L-3 Communications</span><span>Raytheon</span><span>Clarity</span><span>Amazon Web Services</span><span>UMGC</span><span>Code Differently</span><span>Chow.Works</span>
+          <span>NASA Goddard</span><span>L-3 Communications</span><span>Raytheon</span><span>Clarity</span><span>Amazon Web Services</span><span>UMGC</span><span>Code Differently</span><span>Chow.Works</span>
+        </div>
+      </div>
+    </section>
+
     <!-- WORK WITH ME -->
     <h2 class="sec-head reveal" id="work">work with me</h2>
-    <p class="sec-title reveal">Three ways I can help. <span class="dim">Pick the one that sounds like your week.</span></p>
+    <p class="sec-title reveal">Build it. Land it. <span class="dim">Give it back.</span></p>
     <div class="services reveal">
       <a class="svc" href="https://chow.works/build" target="_blank" rel="noopener">
-        <span class="svc-num">01 / build</span>
-        <h3>Build your idea</h3>
-        <p>You have an app, tool or workflow in your head. I scope it, build it and ship something people can actually use.</p>
+        <span class="svc-num">01 / build it</span>
+        <h3>Your idea, shipped</h3>
+        <p>You have an app, tool or workflow stuck in your head. I scope it, build it and put something real in people's hands.</p>
         <span class="go">chow.works/build ↗</span>
       </a>
-      <a class="svc" href="https://callback.coach/interview-prep" target="_blank" rel="noopener">
-        <span class="svc-num">02 / interview</span>
-        <h3>Interview prep</h3>
-        <p>Technical and behavioral prep from someone who sits on the other side of the table. Mock loops, feedback, a plan.</p>
+      <a class="svc" href="https://callback.coach" target="_blank" rel="noopener">
+        <span class="svc-num">02 / land it</span>
+        <h3>Interview &amp; career coaching</h3>
+        <p>Mock loops from someone who has hired hundreds of engineers, then a plan for the offer, the promotion or the team you want to lead.</p>
         <span class="go">callback.coach ↗</span>
       </a>
-      <a class="svc" href="https://callback.coach/coaching" target="_blank" rel="noopener">
-        <span class="svc-num">03 / grow</span>
-        <h3>Career coaching</h3>
-        <p>For engineers aiming at the next level: promotions, leading teams, and the skills nobody teaches in school.</p>
-        <span class="go">callback.coach ↗</span>
+      <a class="svc gives" href="https://chrishoward.gives">
+        <span class="svc-num">03 / give it back</span>
+        <h3>Tech for good</h3>
+        <p>Run a non-profit or education program and need tech help you can't afford? Pro bono builds and mentoring live on .gives.</p>
+        <span class="go">chrishoward.gives →</span>
       </a>
     </div>
 
@@ -496,75 +571,47 @@
     <div class="projects">
 
       <article class="proj wide reveal">
-        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>interview-differently/README.md<span class="status">live</span></div>
-        <div class="proj-body">
-          <div class="cols">
-            <div>
-              <span class="proj-kicker">venture · edtech</span>
-              <h3>Interview Differently</h3>
-              <p class="hook" style="margin-top:8px">Career centers have 3 coaches for 5,000 students. This gives every student a realistic place to practice.</p>
-              <p style="margin-top:10px">AI-powered workplace simulations. Students make sequential decisions inside a live scenario, every choice branches the story, and they're scored across four competency dimensions with written feedback.</p>
-            </div>
-            <ul class="tracks" aria-label="Simulation tracks">
-              <li><b>Incident Response</b> · triage a P1 with 13 min to SLA breach</li>
-              <li><b>Business Case</b> · decide with real financials on the table</li>
-              <li><b>Risk &amp; Compliance</b> · regulatory flag, stakeholder map, clock running</li>
+        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>learn-differently<span class="status">live</span></div>
+        <div class="split">
+          <div class="proj-body">
+            <span class="proj-kicker">🎓 edtech · workforce</span>
+            <h3>Learn Differently</h3>
+            <p class="hook">Training that behaves like the job.</p>
+            <p>One learner record behind five products: an LMS, micro-learning, AI-scored job simulations, job matching and talent placement. Training programs see skill gains, credentials and job-readiness in one place instead of a pile of spreadsheets.</p>
+            <ul class="tracks" aria-label="Simulations">
+              <li><b>🚨 Incident Response</b> · triage a P1 with 13 min to SLA breach</li>
+              <li><b>📊 Business Case</b> · decide with real financials on the table</li>
             </ul>
+            <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">Claude API</span><span class="tag">LTI</span></div>
           </div>
-          <div class="tags">
-            <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">Claude API</span>
-          </div>
+          <div class="shot"><img src="assets/projects/learn-differently.jpg" alt="Learn Differently homepage: Training that behaves like the job" loading="lazy" width="1200" height="750" /></div>
         </div>
         <div class="proj-links">
+          <a href="https://learndifferently.tech" target="_blank" rel="noopener">learndifferently.tech ↗</a>
           <a href="https://interviewdifferently.com" target="_blank" rel="noopener">interviewdifferently.com ↗</a>
-          <a href="https://github.com/ludakhris/interview-differently" target="_blank" rel="noopener">source ↗</a>
         </div>
       </article>
 
       <article class="proj reveal">
-        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>audit-differently<span class="status wip">building</span></div>
+        <div class="shot"><img src="assets/projects/audit-differently.jpg" alt="Audit Differently month-end page with blocking checks" loading="lazy" width="800" height="500" /><span class="emoji" aria-hidden="true">🧾</span></div>
         <div class="proj-body">
           <span class="proj-kicker">non-profit · compliance</span>
           <h3>Audit Differently</h3>
           <p class="hook">Be audit-ready on day one, not on audit day.</p>
-          <p>For bookkeepers at non-profits and training providers who report on grant money. Keeps the proof as you go across eight steps, from proposal to final audit package, so nobody rebuilds a year from email attachments.</p>
-          <div class="tags"><span class="tag">TypeScript</span><span class="tag">monorepo</span><span class="tag">Railway</span></div>
+          <p>For the people who account for grant money. Keeps the proof as you go, flags what's missing before the funder does, and builds the audit package for you.</p>
+          <div class="tags"><span class="tag">TypeScript</span><span class="tag">AI receipt matching</span></div>
         </div>
         <div class="proj-links"><a href="https://github.com/chowworks/audit-differently" target="_blank" rel="noopener">source ↗</a></div>
       </article>
 
       <article class="proj reveal">
-        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>travel-hq<span class="status wip">building</span></div>
-        <div class="proj-body">
-          <span class="proj-kicker">consumer · group travel</span>
-          <h3>Travel HQ</h3>
-          <p class="hook">Get your trip out of the group chat.</p>
-          <p>A home base for the friend who plans the trip: a shareable trip page, who's in, and a running tab of who's paid. It tracks money but never touches it, so there are no processor fees.</p>
-          <div class="tags"><span class="tag">TypeScript</span><span class="tag">mobile-first</span><span class="tag">Railway</span></div>
-        </div>
-        <div class="proj-links"><a href="https://github.com/chowworks/crewcontrol" target="_blank" rel="noopener">source ↗</a></div>
-      </article>
-
-      <article class="proj reveal">
-        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>delaware-rebid-radar<span class="status">live data</span></div>
-        <div class="proj-body">
-          <span class="proj-kicker">civic · open data</span>
-          <h3>Delaware Rebid Radar</h3>
-          <p class="hook">Know when a state contract is coming back up before the bid posts.</p>
-          <p>Predicts re-solicitation windows from Delaware's open contract data, calibrated on 278 matched bids, so small and diverse businesses can get certified and ready in time.</p>
-          <div class="tags"><span class="tag">Next.js</span><span class="tag">open data</span><span class="tag">forecasting</span></div>
-        </div>
-        <div class="proj-links"><a href="https://github.com/chowworks/delaware-rebid-radar" target="_blank" rel="noopener">source ↗</a></div>
-      </article>
-
-      <article class="proj reveal">
-        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>smart-four-advisor<span class="status">live</span></div>
+        <div class="shot"><img src="assets/projects/smart-four-advisor.jpg" alt="Smart Four Advisor board with recommended moves" loading="lazy" width="708" height="560" /><span class="emoji" aria-hidden="true">🎲</span></div>
         <div class="proj-body">
           <span class="proj-kicker">just for fun · game AI</span>
           <h3>Smart Four Advisor</h3>
           <p class="hook">Built to beat a board game's AI on hard mode.</p>
-          <p>A 3D connect-four move engine: minimax with alpha-beta pruning, fork detection, and alerts when the opponent is setting a trap. Runs beside the physical game.</p>
-          <div class="tags"><span class="tag">JavaScript</span><span class="tag">minimax</span><span class="tag">3D board</span></div>
+          <p>A 3D connect-four engine: minimax with alpha-beta pruning, fork detection, and a warning when the computer is setting a trap.</p>
+          <div class="tags"><span class="tag">JavaScript</span><span class="tag">minimax</span></div>
         </div>
         <div class="proj-links">
           <a href="https://www.mrchow.guru/smart-four-advisor/" target="_blank" rel="noopener">play it ↗</a>
@@ -575,55 +622,68 @@
     </div>
 
     <!-- EXPERIENCE -->
-    <!-- TODO(chow): confirm dates for Amazon, Raytheon and NASA; only UMGC's start year is known. -->
     <h2 class="sec-head reveal" id="experience">experience</h2>
     <p class="sec-title reveal"><span style="font-family:var(--mono);font-size:.8em">$ git log --career</span></p>
     <ol class="log reveal">
       <li class="commit head">
         <div class="meta"><span class="hash">a1f9c2e</span><span class="ref">(HEAD → main)</span><span>now</span></div>
         <h3>Founder <span class="org">· Chow.Works, Interview Differently, Callback</span></h3>
-        <p>A DC studio building software for non-profits, education and small businesses, plus the coaching side: interview prep and career growth for engineers.</p>
+        <p>A DC studio building software for education, non-profits and small businesses, plus the coaching side: interview prep and career growth for engineers.</p>
         <div class="tags"><span class="tag">product</span><span class="tag">AI</span><span class="tag">coaching</span></div>
       </li>
       <li class="commit">
-        <div class="meta"><span class="hash">7d3e0b4</span><span>now</span></div>
-        <h3>Software Engineering Manager <span class="org">· Amazon</span></h3>
-        <p>Leading engineering teams: hiring, growing engineers and shipping at scale. It's also where I sit on the interviewer side of the table.</p>
-        <div class="tags"><span class="tag">leadership</span><span class="tag">hiring</span><span class="tag">distributed systems</span></div>
+        <div class="meta"><span class="hash">7d3e0b4</span><span>2022 → now</span></div>
+        <h3>Software Development Manager <span class="org">· Amazon Web Services</span></h3>
+        <p>Led a tiger team to 13 first-of-their-kind cloud automation launches and cut region build times 38%. Built a hiring and training program for 200+ engineers and lead teams of up to 31.</p>
+        <div class="tags"><span class="tag">AWS</span><span class="tag">leadership</span><span class="tag">hiring</span></div>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">c42d9e1</span><span>2017 → 2022</span></div>
+        <h3>Director of Cloud Platforms <span class="org">· Clarity Business Solutions</span></h3>
+        <p>Architected an award-winning, first-in-agency cloud migration and grew the program 3x. Built the company's AWS partnership into 40% of annual revenue.</p>
+        <div class="tags"><span class="tag">cloud architecture</span><span class="tag">AWS partnership</span></div>
       </li>
       <li class="commit">
         <div class="meta"><span class="hash">5c81aa0</span><span>2015 → now</span></div>
-        <h3>Computer Science Professor <span class="org">· University of Maryland Global Campus</span></h3>
-        <p>Teaching undergraduate courses in OOP with Java, Python applications, advanced programming languages, web application security (OWASP Top 10), and software engineering principles.</p>
-        <div class="tags"><span class="tag">Java</span><span class="tag">Python</span><span class="tag">OWASP</span><span class="tag">SE principles</span></div>
+        <h3>Adjunct Professor <span class="org">· University of Maryland Global Campus</span></h3>
+        <p>Teaching OOP with Java, Python applications, advanced programming languages, secure web applications (OWASP Top 10) and software engineering principles.</p>
+        <div class="tags"><span class="tag">Java</span><span class="tag">Python</span><span class="tag">OWASP</span></div>
       </li>
       <li class="commit">
-        <div class="meta"><span class="hash">3b0e7f1</span><span>earlier</span></div>
-        <h3>Software Engineer <span class="org">· Raytheon</span></h3>
-        <p>Building software for defense systems.</p>
+        <div class="meta"><span class="hash">3b0e7f1</span><span>2008 → 2017</span></div>
+        <h3>Technical Lead <span class="org">· Raytheon</span></h3>
+        <p>Scaled a mission platform from one agency segment to 18 agencies. Launched an e-signature platform that grew from 5 to ~2,000 agreements, and built the org's first CI/CD pipeline: weekly deploys became several a day.</p>
+        <div class="tags"><span class="tag">distributed systems</span><span class="tag">CI/CD</span></div>
       </li>
       <li class="commit">
-        <div class="meta"><span class="hash">0e4a2d9</span><span>first commit</span></div>
-        <h3>Software Engineer <span class="org">· NASA</span></h3>
-        <p>Where it started.</p>
+        <div class="meta"><span class="hash">9a6f3c2</span><span>2005 → 2008</span></div>
+        <h3>Software Engineer <span class="org">· L-3 Communications</span></h3>
+        <p>Built on a worldwide, real-time distributed data-processing platform in C, C++ and Java.</p>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">0e4a2d9</span><span>2001 → 2004 · first commit</span></div>
+        <h3>Software Engineer <span class="org">· NASA Goddard Space Flight Center</span></h3>
+        <p>Distributed data and visualization systems for scientists on the Polar, Wind and Geotail satellite missions.</p>
       </li>
     </ol>
+    <p class="teach-lead reveal" style="margin-top:22px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">M.S. Computer Science, George Washington University · B.S. Computer Engineering, UMBC · <a href="https://www.linkedin.com/in/christopherghoward/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">full history on LinkedIn ↗</a></p>
 
     <!-- CLOSING CTA -->
     <section class="cta reveal" id="contact" aria-labelledby="cta-h">
       <p class="prompt"><b>chow@dc</b>:~$ ./whats-next</p>
-      <h2 id="cta-h">Got an idea that won't leave you alone, or <em>an interview on the calendar?</em></h2>
-      <p>Send me a few sentences. I'll tell you honestly whether I'm the right person and what the first step looks like.</p>
+      <h2 id="cta-h">Bring the idea. <em>Or the interview.</em></h2>
+      <p>A few sentences is enough. You'll get an honest answer and a first step.</p>
       <div class="hero-cta">
-        <a class="btn primary" href="mailto:contact@chrishoward.fyi?subject=I%20have%20something%20to%20build">Pitch me your idea →</a>
-        <a class="btn" href="mailto:contact@chrishoward.fyi?subject=Interview%20coaching">Get interview coaching</a>
+        <a class="btn primary" href="mailto:contact@chrishoward.fyi?subject=Ship%20my%20idea">./ship-my-idea →</a>
+        <a class="btn" href="mailto:contact@chrishoward.fyi?subject=Help%20me%20land%20the%20offer">./land-the-offer</a>
       </div>
       <div class="contact">
-        <a class="chip" href="mailto:contact@chrishoward.fyi">email</a>
-        <a class="chip" href="https://github.com/ludakhris" target="_blank" rel="noopener">github</a>
-        <a class="chip" href="https://www.linkedin.com/in/christopherghoward/" target="_blank" rel="noopener">linkedin</a>
-        <a class="chip" href="https://chow.works" target="_blank" rel="noopener">chow.works</a>
-        <a class="chip" href="https://callback.coach" target="_blank" rel="noopener">callback.coach</a>
+        <a class="chip" href="mailto:contact@chrishoward.fyi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 7.2L4 7.4V17h16V7.4l-8 4.8ZM5.2 7 12 11l6.8-4H5.2Z"/></svg>email</a>
+        <a class="chip" href="https://github.com/ludakhris" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>github</a>
+        <a class="chip" href="https://www.linkedin.com/in/christopherghoward/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>linkedin</a>
+        <a class="chip" href="https://chow.works" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.6 16.6-4.6-4.6 4.6-4.6L7.2 6 1.2 12l6 6 1.4-1.4Zm6.8 0 4.6-4.6-4.6-4.6L16.8 6l6 6-6 6-1.4-1.4Z"/></svg>chow.works</a>
+        <a class="chip" href="https://callback.coach" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>callback.coach</a>
+        <a class="chip" href="https://chrishoward.gives"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35 10.55 20C5.4 15.36 2 12.28 2 8.5A5.42 5.42 0 0 1 7.5 3 6 6 0 0 1 12 5.09 6 6 0 0 1 16.5 3 5.42 5.42 0 0 1 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z"/></svg>.gives</a>
       </div>
     </section>
 
