@@ -310,6 +310,13 @@
   .proj.wide .split { display: flex; flex-direction: column; flex: 1; }
   .proj.wide .tracks { flex-direction: row; flex-wrap: wrap; }
   .proj.wide .tracks li { flex: 1 1 200px; }
+  @media (min-width: 761px) {
+    .proj.wide .split { flex-direction: row; align-items: stretch; }
+    .proj.wide .shot { flex: 0 0 44%; aspect-ratio: auto; border-bottom: 0; border-right: 1px solid var(--bg-line); display: flex; align-items: center; background: #f6f7f4; }
+    .proj.wide .shot img { height: auto; }
+    .proj.wide .tracks { flex-direction: column; }
+    .proj.wide .tracks li { flex: none; }
+  }
   .tab {
     display: flex;
     align-items: center;
