@@ -367,14 +367,13 @@
   .log::before {
     content: '';
     position: absolute;
-    left: 17px; top: 18px; bottom: 18px;
+    left: 5px; top: 10px; bottom: 10px;
     width: 1px;
     background: linear-gradient(180deg, var(--accent), var(--bg-line) 30%, var(--bg-line));
   }
-  .commit { position: relative; padding: 0 0 30px 52px; }
+  .commit { position: relative; padding: 0 0 30px 34px; }
   .commit:last-child { padding-bottom: 0; }
   .commit::before {
-    display: none;
     content: '';
     position: absolute;
     left: 0; top: 6px;
@@ -383,20 +382,6 @@
     background: var(--bg);
     border: 2px solid var(--muted-2);
   }
-  .logo {
-    position: absolute; left: 0; top: 0;
-    width: 35px; height: 35px;
-    display: grid; place-items: center;
-    border-radius: 10px;
-    background: color-mix(in srgb, var(--c) 14%, var(--bg));
-    border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
-    color: var(--c);
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-  .commit.head .logo { box-shadow: 0 0 0 4px var(--accent-a), 0 0 22px -4px var(--c); }
   .commit h3 .dim { color: var(--muted-2); font-weight: 400; }
   .commit.head::before { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px var(--accent-a); }
   .meta { font-family: var(--mono); font-size: 12px; color: var(--muted-2); display: flex; flex-wrap: wrap; gap: 4px 12px; }
@@ -521,7 +506,7 @@
         <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><b>25+</b><span>years shipping products and mission applications, from NASA and Raytheon to AWS</span></div>
         <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.8.3 5 2.7 5 5.8"/></svg></i><b>200+</b><span>engineers hired and upskilled through a program I built</span></div>
         <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l8 5H4l8-5Z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></i><b>18</b><span>agencies running on a platform I scaled from one team</span></div>
-        <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></svg></i><b>10+</b><span>years teaching computer science at Maryland colleges</span></div>
+        <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></svg></i><b>10+</b><span>years teaching computer science at colleges and universities</span></div>
       </div>
     </section>
 
@@ -587,7 +572,7 @@
           <p>Keeps grant-funded programs' proof as they go, so the audit package is built before the auditor asks.</p>
           <div class="tags"><span class="tag">TypeScript</span><span class="tag">AI receipt matching</span></div>
         </div>
-        <div class="proj-links"><a href="https://github.com/chowworks/audit-differently" target="_blank" rel="noopener">source ↗</a></div>
+        <div class="proj-links"><a href="https://auditdifferently.tech" target="_blank" rel="noopener">auditdifferently.tech ↗</a></div>
       </article>
 
       <article class="proj reveal">
@@ -612,43 +597,54 @@
     <p class="sec-title reveal"><span style="font-family:var(--mono);font-size:.8em">$ git log --career</span></p>
     <ol class="log reveal">
       <li class="commit head">
-        <span class="logo" style="--c:#ff9900" aria-hidden="true">aws</span>
         <div class="meta"><span class="hash">7d3e0b4</span><span class="ref">(HEAD → main)</span><span>2022 → now</span></div>
         <h3>Software Development Manager <span class="org">· Amazon Web Services</span></h3>
         <p>Lead cloud teams of up to 31 and built the hiring and training program behind 200+ engineers.</p>
       </li>
       <li class="commit">
-        <span class="logo" style="--c:#8e9bff" aria-hidden="true">//</span>
         <div class="meta"><span class="hash">a1f9c2e</span><span class="ref">(branch: ventures)</span><span>2021 → now</span></div>
-        <h3>Founder <span class="org">· Chow.Works, Interview Differently, Callback</span></h3>
-        <p>A DC studio building software for education and non-profits, plus interview and career coaching for engineers.</p>
+        <h3>Founder <span class="org">· Chow.Works</span></h3>
+        <p>Software for schools, government, nonprofits, and the people who run them.</p>
       </li>
       <li class="commit">
-        <span class="logo" style="--c:#2bb3a3" aria-hidden="true">C</span>
         <div class="meta"><span class="hash">c42d9e1</span><span>2017 → 2022</span></div>
         <h3>Director of Cloud Platforms <span class="org">· Clarity Business Solutions</span></h3>
         <p>Led an award-winning, first-in-agency cloud migration and grew the program 3x.</p>
       </li>
       <li class="commit">
-        <span class="logo" style="--c:#e8b873" aria-hidden="true">🎓</span>
         <div class="meta"><span class="hash">5c81aa0</span><span>2015 → now</span></div>
         <h3>Adjunct Professor <span class="org">· UMGC, Prince George's CC, Howard CC</span></h3>
         <p>Teaching Java, Python, secure web applications and software engineering to the next wave of developers.</p>
       </li>
       <li class="commit">
-        <span class="logo" style="--c:#e2231a" aria-hidden="true">R</span>
         <div class="meta"><span class="hash">3b0e7f1</span><span>2008 → 2017</span></div>
         <h3>Software Engineering Tech Lead <span class="org">· Raytheon</span></h3>
         <p>Scaled a mission platform from a single agency segment to 18 agencies.</p>
       </li>
       <li class="commit">
-        <span class="logo" style="--c:#5aa0ff" aria-hidden="true">🚀</span>
-        <div class="meta"><span class="hash">0e4a2d9</span><span>2001 → 2008 · first commits</span></div>
-        <h3>Senior Software Engineer <span class="org">· L-3 Communications</span> <span class="dim">&amp;</span> Software Engineer <span class="org">· NASA Goddard</span></h3>
-        <p>Real-time distributed data platforms at L-3, and data visualization for NASA's Polar, Wind and Geotail satellite missions.</p>
+        <div class="meta"><span class="hash">6e2b8d1</span><span class="ref">(tag: ph.d.-studies)</span><span>2008 → 2012</span></div>
+        <h3>Ph.D. studies, Computer Science <span class="org">· George Washington University</span></h3>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">4f1c7a3</span><span class="ref">(tag: m.s.)</span><span>2007</span></div>
+        <h3>M.S., Computer Science <span class="org">· George Washington University</span></h3>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">9a6f3c2</span><span>2005 → 2008</span></div>
+        <h3>Senior Software Engineer <span class="org">· L-3 Communications</span></h3>
+        <p>Built real-time, worldwide distributed data platforms in C, C++ and Java.</p>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">2d9e5b0</span><span class="ref">(tag: b.s.)</span><span>2004</span></div>
+        <h3>B.S., Computer Engineering <span class="org">· UMBC</span></h3>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">0e4a2d9</span><span>1999 → 2004 · first commit</span></div>
+        <h3>Software Engineer <span class="org">· NASA Goddard Space Flight Center</span></h3>
+        <p>Data and visualization systems for scientists on the Polar, Wind and Geotail satellite missions.</p>
       </li>
     </ol>
-    <p class="teach-lead reveal" style="margin-top:22px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">M.S. Computer Science, George Washington University · B.S. Computer Engineering, UMBC · <a href="https://www.linkedin.com/in/christopherghoward/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">full history on LinkedIn ↗</a></p>
+    <p class="reveal" style="margin-top:22px;font-family:var(--mono);font-size:12.5px"><a href="https://www.linkedin.com/in/christopherghoward/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">full history on LinkedIn ↗</a></p>
 
     <!-- CLOSING CTA -->
     <section class="cta reveal" id="contact" aria-labelledby="cta-h">
