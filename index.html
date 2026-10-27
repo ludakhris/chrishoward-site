@@ -312,10 +312,12 @@
   .proj.wide .tracks li { flex: 1 1 200px; }
   @media (min-width: 761px) {
     .proj.wide .split { flex-direction: row; align-items: stretch; }
-    .proj.wide .shot { flex: 0 0 46%; aspect-ratio: auto; border-bottom: 0; border-right: 1px solid var(--bg-line); }
-    .proj.wide .shot img { position: absolute; inset: 0; object-fit: cover; object-position: center top; }
-    .proj.wide .tracks { flex-direction: column; }
-    .proj.wide .tracks li { flex: none; }
+    .proj.wide .shot { flex: 0 0 50%; aspect-ratio: auto; border-bottom: 0; border-right: 1px solid var(--bg-line); display: flex; align-items: center; background: #f6f6f4; }
+    .proj.wide .shot img { height: auto; object-fit: contain; }
+    .proj.wide .proj-body > p:not(.hook) { display: none; }
+    .proj.wide .tracks { gap: 6px; }
+    .proj.wide .tracks li { flex: none; padding: 5px 9px; font-size: 11px; white-space: nowrap; }
+    .proj.wide .tracks li span { display: none; }
   }
   .tab {
     display: flex;
@@ -613,16 +615,16 @@
       <article class="proj wide reveal">
         <div class="tab"><span class="dots"><i></i><i></i><i></i></span>learn-differently<span class="status">live</span></div>
         <div class="split">
-          <div class="shot"><picture><source media="(min-width: 761px)" srcset="assets/projects/learn-differently-portrait.jpg" /><img src="assets/projects/learn-differently.jpg" alt="Learn Differently: training that adapts, admin work automated" loading="lazy" width="1200" height="630" /></picture></div>
+          <div class="shot"><img src="assets/projects/learn-differently.jpg" alt="Learn Differently: training that adapts, admin work automated" loading="lazy" width="1200" height="630" /></div>
           <div class="proj-body">
             <span class="proj-kicker">🎓 edtech · workforce</span>
             <h3>Learn Differently</h3>
             <p class="hook">For workforce programs buried in spreadsheets and funder reports.</p>
             <p>Five products on one learner record, from three-minute lessons to AI-scored job simulations to talent matching.</p>
             <ul class="tracks" aria-label="How it works">
-              <li><b>📚 Learn</b> · a three-minute lesson on one skill</li>
-              <li><b>🤖 Practice</b> · real work alongside an AI agent</li>
-              <li><b>✅ Prove</b> · scored on the spot, a verified skill on the record</li>
+              <li><b>📚 Learn</b><span> · a three-minute lesson on one skill</span></li>
+              <li><b>🤖 Practice</b><span> · real work alongside an AI agent</span></li>
+              <li><b>✅ Prove</b><span> · scored on the spot, a verified skill on the record</span></li>
             </ul>
             <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">Claude API</span><span class="tag">LTI</span></div>
           </div>
