@@ -24,17 +24,22 @@
 
   :root {
     --bg:        #0a0b0f;
+    --bg-2:      #0f1117;
     --bg-line:   rgba(255,255,255,0.08);
+    --bg-line-2: rgba(255,255,255,0.13);
     --fg:        #e9ebef;
-    --muted:     rgba(233,235,239,0.46);
-    --muted-2:   rgba(233,235,239,0.30);
+    --muted:     rgba(233,235,239,0.56);
+    --muted-2:   rgba(233,235,239,0.34);
     --accent:    #8e9bff;   /* restrained cool indigo — .fyi identity */
+    --accent-a:  rgba(142,155,255,0.10);
+    --amber:     #e8b873;   /* .gives identity */
+    --green:     #7fd1a6;
     --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     --sans: 'Inter', system-ui, -apple-system, sans-serif;
-    --col:  820px;
+    --col:  880px;
   }
 
-  html, body { height: 100%; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 
   body {
     background: var(--bg);
@@ -44,8 +49,7 @@
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    overflow-x: hidden;
   }
 
   /* faint vertical "gutter" like a code editor margin */
@@ -57,50 +61,78 @@
     width: 1px;
     background: linear-gradient(180deg, transparent, var(--bg-line) 12%, var(--bg-line) 88%, transparent);
     pointer-events: none;
+    z-index: 0;
   }
   @media (max-width: 680px) { body::before { display: none; } }
 
+  /* dot grid + indigo glow behind the hero */
+  .backdrop {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 900px;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(600px 380px at 78% 120px, rgba(142,155,255,0.16), transparent 70%),
+      radial-gradient(420px 300px at 12% 420px, rgba(142,155,255,0.07), transparent 70%);
+  }
+  .backdrop::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 85%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 85%);
+  }
+
   .wrap {
+    position: relative;
+    z-index: 1;
     width: 100%;
     max-width: var(--col);
     margin: 0 auto;
-    padding: clamp(28px, 6vw, 56px) clamp(22px, 5vw, 40px);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    padding: 0 clamp(20px, 5vw, 40px) clamp(28px, 6vw, 56px);
   }
 
   /* ── top bar ── */
   .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0;
     font-family: var(--mono);
     font-size: 12.5px;
     color: var(--muted);
+    background: linear-gradient(180deg, rgba(10,11,15,0.92) 60%, rgba(10,11,15,0));
+    -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
   }
-  .topbar .path { letter-spacing: 0.02em; }
-  .topbar .path .slash, .eyebrow .slash { color: var(--accent); }
+  .topbar .path { letter-spacing: 0.02em; color: var(--fg); text-decoration: none; }
+  .slash { color: var(--accent); }
+  .nav { display: flex; align-items: center; gap: 18px; }
+  .nav a { color: var(--muted); text-decoration: none; transition: color .18s; }
+  .nav a:hover, .nav a:focus-visible { color: var(--fg); outline: none; }
   .gives-link {
-    color: var(--muted);
-    text-decoration: none;
-    font-family: var(--mono);
-    font-size: 12.5px;
     padding: 5px 10px;
     border: 1px solid var(--bg-line);
     border-radius: 7px;
     transition: color .18s, border-color .18s, background .18s;
     white-space: nowrap;
   }
-  .gives-link:hover, .gives-link:focus-visible {
+  .nav .gives-link:hover, .nav .gives-link:focus-visible {
     color: var(--fg);
     border-color: rgba(232,184,115,0.5);
     background: rgba(232,184,115,0.06);
-    outline: none;
   }
+  @media (max-width: 680px) { .nav .hide-sm { display: none; } }
 
   /* ── hero / identifier ── */
-  .hero { margin-top: clamp(48px, 14vh, 130px); }
+  .hero { margin-top: clamp(40px, 11vh, 110px); }
   .eyebrow {
     font-family: var(--mono);
     font-size: 12.5px;
@@ -123,21 +155,64 @@
     background: var(--accent);
     transform: translateY(0.08em);
     animation: blink 1.15s steps(1) infinite;
+    box-shadow: 0 0 24px rgba(142,155,255,0.6);
   }
   @keyframes blink { 50% { opacity: 0; } }
 
   .tagline {
     margin-top: 26px;
-    font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+    font-size: clamp(1.15rem, 2.8vw, 1.5rem);
     color: var(--fg);
-    max-width: 34em;
+    max-width: 30em;
     font-weight: 500;
+    letter-spacing: -0.01em;
   }
+  .tagline em { font-style: normal; color: var(--accent); }
   .sub {
     margin-top: 14px;
-    font-size: 0.98rem;
+    font-size: 1rem;
     color: var(--muted);
     line-height: 1.65;
+    max-width: 60ch;
+  }
+
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 11px 16px;
+    border-radius: 9px;
+    border: 1px solid var(--bg-line-2);
+    color: var(--fg);
+    transition: background .18s, border-color .18s, transform .18s, box-shadow .18s;
+  }
+  .btn:hover, .btn:focus-visible { border-color: rgba(142,155,255,0.6); background: var(--accent-a); outline: none; transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: #0a0b0f; border-color: var(--accent); }
+  .btn.primary:hover, .btn.primary:focus-visible { background: #a6b0ff; box-shadow: 0 8px 30px -8px rgba(142,155,255,0.7); }
+
+  /* ── proof strip ── */
+  .proof {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: clamp(44px, 8vh, 72px);
+    border: 1px solid var(--bg-line);
+    border-radius: 12px;
+    background: rgba(15,17,23,0.6);
+    overflow: hidden;
+  }
+  .proof div { padding: 16px 18px; border-left: 1px solid var(--bg-line); }
+  .proof div:first-child { border-left: 0; }
+  .proof b { display: block; font-family: var(--mono); font-size: 1.25rem; font-weight: 700; color: var(--fg); letter-spacing: -0.02em; }
+  .proof span { font-size: 0.82rem; color: var(--muted); }
+  @media (max-width: 680px) {
+    .proof { grid-template-columns: 1fr 1fr; }
+    .proof div:nth-child(3) { border-left: 0; }
+    .proof div:nth-child(n+3) { border-top: 1px solid var(--bg-line); }
   }
 
   /* ── section heading ── */
@@ -145,7 +220,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    margin: clamp(46px, 9vh, 84px) 0 6px;
+    margin: clamp(64px, 11vh, 110px) 0 8px;
     font-family: var(--mono);
     font-size: 11px;
     letter-spacing: 0.2em;
@@ -153,84 +228,175 @@
     color: var(--muted-2);
   }
   .sec-head::before { content: ''; width: 5px; height: 5px; border-radius: 1px; background: var(--accent); flex: none; }
-  .sec-head::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--bg-line);
+  .sec-head::after { content: ''; flex: 1; height: 1px; background: var(--bg-line); }
+  .sec-title {
+    font-size: clamp(1.4rem, 3.4vw, 1.9rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 14px 0 22px;
+    max-width: 28em;
   }
+  .sec-title .dim { color: var(--muted); }
 
-  /* ── link rows ── */
-  .rows { display: flex; flex-direction: column; }
-  .row {
+  /* ── services ── */
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .svc {
+    position: relative;
     display: flex;
-    align-items: baseline;
-    gap: 16px;
-    padding: 16px 4px;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 18px 18px;
+    border: 1px solid var(--bg-line);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0));
     text-decoration: none;
     color: var(--fg);
+    transition: border-color .2s, transform .2s, background .2s;
+  }
+  .svc:hover, .svc:focus-visible { border-color: rgba(142,155,255,0.5); transform: translateY(-2px); background: linear-gradient(180deg, var(--accent-a), rgba(255,255,255,0)); outline: none; }
+  .svc-num { font-family: var(--mono); font-size: 11.5px; color: var(--accent); }
+  .svc h3 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
+  .svc p { font-size: 0.9rem; color: var(--muted); line-height: 1.55; flex: 1; }
+  .svc .go { font-family: var(--mono); font-size: 12px; color: var(--muted); transition: color .18s; }
+  .svc:hover .go, .svc:focus-visible .go { color: var(--accent); }
+  @media (max-width: 760px) { .services { grid-template-columns: 1fr; } }
+
+  /* ── featured projects ── */
+  .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .proj {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--bg-line);
+    border-radius: 12px;
+    background: var(--bg-2);
+    overflow: hidden;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .proj:hover { border-color: rgba(142,155,255,0.45); transform: translateY(-2px); box-shadow: 0 18px 40px -24px rgba(142,155,255,0.45); }
+  .proj.wide { grid-column: span 2; }
+  .tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
     border-bottom: 1px solid var(--bg-line);
-    transition: padding-left .2s ease;
-  }
-  .row:hover, .row:focus-visible { padding-left: 12px; outline: none; }
-  .row:hover .row-name, .row:focus-visible .row-name { color: var(--accent); }
-  .row:hover .arrow, .row:focus-visible .arrow { transform: translate(3px,-3px); color: var(--accent); }
-  .row-name {
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: color .18s;
-    flex-shrink: 0;
-  }
-  .row-desc {
+    background: rgba(255,255,255,0.02);
+    font-family: var(--mono);
+    font-size: 11.5px;
     color: var(--muted);
-    font-size: 0.92rem;
-    flex: 1;
   }
-  .row-tag {
+  .dots { display: inline-flex; gap: 5px; margin-right: 6px; }
+  .dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.12); }
+  .tab .status { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: var(--muted-2); }
+  .tab .status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+  .tab .status.wip::before { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+  .proj-body { padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .proj-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .proj h3 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.015em; }
+  .proj .hook { font-size: 0.98rem; color: var(--fg); font-weight: 500; }
+  .proj p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+  .proj.wide .cols { display: grid; grid-template-columns: 1.15fr 1fr; gap: 22px; align-items: start; }
+  .proj.wide .proj-body { padding: 22px 22px 18px; }
+  .proj.wide h3 { font-size: 1.45rem; }
+  .tracks { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .tracks li {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    padding: 9px 12px;
+    border: 1px solid var(--bg-line);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.015);
+  }
+  .tracks li b { color: var(--fg); font-weight: 500; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; }
+  .tag {
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--muted-2);
+    color: var(--muted);
     border: 1px solid var(--bg-line);
     border-radius: 5px;
     padding: 2px 7px;
-    white-space: nowrap;
-    align-self: center;
   }
-  .arrow {
-    font-family: var(--mono);
-    color: var(--muted-2);
-    transition: transform .2s ease, color .18s;
-    align-self: center;
+  .proj-links { display: flex; gap: 16px; padding: 12px 18px; border-top: 1px solid var(--bg-line); font-family: var(--mono); font-size: 12px; }
+  .proj-links a { color: var(--muted); text-decoration: none; transition: color .18s; }
+  .proj-links a:hover, .proj-links a:focus-visible { color: var(--accent); outline: none; }
+  @media (max-width: 760px) {
+    .projects { grid-template-columns: 1fr; }
+    .proj.wide { grid-column: auto; }
+    .proj.wide .cols { grid-template-columns: 1fr; }
   }
 
-  /* ── contact ── */
-  .contact {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 8px;
-    margin-top: 14px;
+  /* ── experience: git log ── */
+  .log { position: relative; list-style: none; }
+  .log::before {
+    content: '';
+    position: absolute;
+    left: 5px; top: 10px; bottom: 10px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent), var(--bg-line) 30%, var(--bg-line));
   }
+  .commit { position: relative; padding: 0 0 30px 34px; }
+  .commit:last-child { padding-bottom: 0; }
+  .commit::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--muted-2);
+  }
+  .commit.head::before { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px var(--accent-a); }
+  .meta { font-family: var(--mono); font-size: 12px; color: var(--muted-2); display: flex; flex-wrap: wrap; gap: 4px 12px; }
+  .meta .hash { color: var(--amber); }
+  .meta .ref { color: var(--accent); }
+  .commit h3 { margin-top: 4px; font-size: 1.08rem; font-weight: 600; letter-spacing: -0.01em; }
+  .commit h3 .org { color: var(--muted); font-weight: 500; }
+  .commit p { margin-top: 6px; font-size: 0.92rem; color: var(--muted); line-height: 1.6; max-width: 62ch; }
+  .commit .tags { padding-top: 10px; }
+
+  /* ── closing CTA ── */
+  .cta {
+    position: relative;
+    margin-top: clamp(64px, 11vh, 110px);
+    padding: clamp(28px, 5vw, 44px);
+    border: 1px solid rgba(142,155,255,0.28);
+    border-radius: 16px;
+    background:
+      radial-gradient(500px 240px at 100% 0%, rgba(142,155,255,0.16), transparent 70%),
+      var(--bg-2);
+    overflow: hidden;
+  }
+  .cta .prompt { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .cta .prompt b { color: var(--green); font-weight: 500; }
+  .cta h2 {
+    margin-top: 14px;
+    font-size: clamp(1.6rem, 4.4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    max-width: 18em;
+  }
+  .cta h2 em { font-style: normal; color: var(--accent); }
+  .cta p { margin-top: 12px; color: var(--muted); max-width: 52ch; line-height: 1.6; }
+  .cta .hero-cta { margin-top: 24px; }
+  .contact { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--bg-line); }
   .chip {
     font-family: var(--mono);
-    font-size: 13px;
-    color: var(--fg);
+    font-size: 12.5px;
+    color: var(--muted);
     text-decoration: none;
-    padding: 8px 14px;
+    padding: 6px 12px;
     border: 1px solid var(--bg-line);
     border-radius: 8px;
     transition: border-color .18s, color .18s, background .18s;
   }
-  .chip:hover, .chip:focus-visible {
-    border-color: rgba(142,155,255,0.55);
-    background: rgba(142,155,255,0.07);
-    color: #fff;
-    outline: none;
-  }
+  .chip:hover, .chip:focus-visible { border-color: rgba(142,155,255,0.55); background: var(--accent-a); color: #fff; outline: none; }
 
   /* ── footer ── */
   footer {
-    margin-top: auto;
-    padding-top: clamp(48px, 10vh, 90px);
+    padding-top: clamp(40px, 8vh, 72px);
     font-family: var(--mono);
     font-size: 11.5px;
     color: var(--muted-2);
@@ -240,35 +406,27 @@
     gap: 10px;
   }
   footer a { color: var(--muted); text-decoration: none; }
-  footer a:hover { color: var(--fg); }
+  footer a:hover { color: var(--amber); }
 
-  /* ── load animation ── */
-  .stagger { opacity: 0; transform: translateY(8px); animation: rise .55s ease forwards; }
-  .stagger:nth-child(1) { animation-delay: .05s; }
-  .hero   { animation: rise .6s ease .12s forwards; opacity: 0; transform: translateY(8px); }
-  .reveal { opacity: 0; transform: translateY(8px); animation: rise .55s ease forwards; }
-  @keyframes rise { to { opacity: 1; transform: none; } }
+  /* ── motion ── */
+  .hero { animation: rise .6s ease .08s both; }
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
   @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
-    .hero, .reveal, .stagger { opacity: 1; transform: none; }
+    .hero, .reveal { opacity: 1; transform: none; }
     .cursor { opacity: 1; }
   }
-
-  /* ── teaching ── */
-  .teach-lead { font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 18px; max-width: 56ch; }
-  .course-list { list-style: none; display: grid; grid-template-columns: 1fr; gap: 11px 32px; }
-  .course-list li { position: relative; padding-left: 22px; font-size: 1rem; color: var(--fg); line-height: 1.4; }
-  .course-list li::before { content: '\203A'; position: absolute; left: 2px; color: var(--muted-2); font-family: var(--mono); }
-  @media (min-width: 640px) { .course-list { grid-template-columns: 1fr 1fr; } }
 
   /* ── large screens: wider column, restrained height ── */
   @media (min-width: 1500px) {
     :root { --col: 1040px; }
     .name    { font-size: 5.5rem; }
-    .tagline { font-size: 1.4rem; }
+    .tagline { font-size: 1.55rem; }
     .sub     { font-size: 1.04rem; }
-    .hero    { margin-top: clamp(40px, 6vh, 80px); }
   }
   @media (min-width: 1920px) {
     :root  { --col: 1180px; }
@@ -277,92 +435,215 @@
 </style>
 </head>
 <body>
+  <div class="backdrop" aria-hidden="true"></div>
   <div class="wrap">
 
-    <div class="topbar stagger">
-      <span class="path"><span class="slash">//</span> chrishoward.fyi</span>
-      <a class="gives-link" href="https://chrishoward.gives">.gives &nbsp;→</a>
+    <div class="topbar">
+      <a class="path" href="#top"><span class="slash">//</span> chrishoward.fyi</a>
+      <nav class="nav" aria-label="Sections">
+        <a class="hide-sm" href="#work">work with me</a>
+        <a href="#projects">projects</a>
+        <a class="hide-sm" href="#experience">experience</a>
+        <a class="gives-link" href="https://chrishoward.gives">.gives &nbsp;→</a>
+      </nav>
     </div>
 
-    <header class="hero">
+    <header class="hero" id="top">
       <p class="eyebrow"><span class="slash">//</span> builder · coach · professor · washington, dc</p>
       <h1 class="name">Chris<br>Howard<span class="cursor" aria-hidden="true"></span></h1>
-      <p class="tagline">I build software — and the engineers who build it.</p>
-      <p class="sub">Software Engineering Manager at Amazon, previously Raytheon and NASA. Computer science professor at the University of Maryland Global Campus since 2015. Founder of Chow.Works — software for non-profits and education, interview and career coaching for engineers, and rough ideas built into working products.</p>
+      <p class="tagline">I build software — <em>and the engineers who build it.</em></p>
+      <p class="sub">Software Engineering Manager at Amazon, previously Raytheon and NASA. Computer science professor at UMGC since 2015. Through Chow.Works I turn rough ideas into working products for non-profits, education and small businesses, and I coach engineers through interviews and careers.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="mailto:contact@chrishoward.fyi?subject=I%20have%20something%20to%20build">Pitch me your idea →</a>
+        <a class="btn" href="mailto:contact@chrishoward.fyi?subject=Interview%20coaching">Get interview coaching</a>
+      </div>
+
+      <div class="proof">
+        <div><b>Amazon</b><span>eng manager · ex-Raytheon, NASA</span></div>
+        <div><b>2015</b><span>teaching CS at UMGC since</span></div>
+        <div><b>5</b><span>products shipped or in build</span></div>
+        <div><b>DC</b><span>tech for social good</span></div>
+      </div>
     </header>
 
-    <!-- WORK / VENTURES -->
-    <h2 class="sec-head reveal" style="animation-delay:.22s">work &amp; ventures</h2>
-    <nav class="rows reveal" style="animation-delay:.28s" aria-label="Work and ventures">
-      <a class="row" href="https://chow.works" target="_blank" rel="noopener">
-        <span class="row-name">Chow.Works</span>
-        <span class="row-desc">Tech for social good — DC studio for non-profits &amp; education</span>
-        <span class="row-tag">founder</span>
-        <span class="arrow" aria-hidden="true">↗</span>
+    <!-- WORK WITH ME -->
+    <h2 class="sec-head reveal" id="work">work with me</h2>
+    <p class="sec-title reveal">Three ways I can help. <span class="dim">Pick the one that sounds like your week.</span></p>
+    <div class="services reveal">
+      <a class="svc" href="https://chow.works/build" target="_blank" rel="noopener">
+        <span class="svc-num">01 / build</span>
+        <h3>Build your idea</h3>
+        <p>You have an app, tool or workflow in your head. I scope it, build it and ship something people can actually use.</p>
+        <span class="go">chow.works/build ↗</span>
       </a>
-      <a class="row" href="https://interviewdifferently.com" target="_blank" rel="noopener">
-        <span class="row-name">Interview Differently</span>
-        <span class="row-desc">AI-powered interview simulations — see how you think under pressure</span>
-        <span class="row-tag">founder</span>
-        <span class="arrow" aria-hidden="true">↗</span>
+      <a class="svc" href="https://callback.coach/interview-prep" target="_blank" rel="noopener">
+        <span class="svc-num">02 / interview</span>
+        <h3>Interview prep</h3>
+        <p>Technical and behavioral prep from someone who sits on the other side of the table. Mock loops, feedback, a plan.</p>
+        <span class="go">callback.coach ↗</span>
       </a>
-      <a class="row" href="https://callback.coach" target="_blank" rel="noopener">
-        <span class="row-name">Callback</span>
-        <span class="row-desc">1:1 interview coaching and prep — the human side of the offer</span>
-        <span class="row-tag">founder</span>
-        <span class="arrow" aria-hidden="true">↗</span>
+      <a class="svc" href="https://callback.coach/coaching" target="_blank" rel="noopener">
+        <span class="svc-num">03 / grow</span>
+        <h3>Career coaching</h3>
+        <p>For engineers aiming at the next level: promotions, leading teams, and the skills nobody teaches in school.</p>
+        <span class="go">callback.coach ↗</span>
       </a>
-    </nav>
-
-    <!-- WHAT I DO / SERVICES -->
-    <h2 class="sec-head reveal" style="animation-delay:.32s">work with me</h2>
-    <nav class="rows reveal" style="animation-delay:.36s" aria-label="Services">
-      <a class="row" href="https://chow.works/build" target="_blank" rel="noopener">
-        <span class="row-name">Build it</span>
-        <span class="row-desc">Turn your app idea or project into something real</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="row" href="https://callback.coach/interview-prep" target="_blank" rel="noopener">
-        <span class="row-name">Interview prep</span>
-        <span class="row-desc">Get ready for technical interviews, end to end</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="row" href="https://callback.coach/coaching" target="_blank" rel="noopener">
-        <span class="row-name">Tech coaching</span>
-        <span class="row-desc">Career and skills coaching for engineers</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </nav>
-
-    <!-- ELSEWHERE -->
-    <!-- TEACHING -->
-    <h2 class="sec-head reveal" style="animation-delay:.42s">teaching</h2>
-    <div class="teach reveal" style="animation-delay:.46s">
-      <p class="teach-lead">Undergraduate courses I've taught:</p>
-      <ul class="course-list">
-        <li>Intro to Object Oriented Programming (Java)</li>
-        <li>Building Python Applications</li>
-        <li>Advanced Programming Languages</li>
-        <li>Web Application Security Hardening (OWASP Top 10)</li>
-        <li>Software Engineering Principles &amp; Techniques</li>
-      </ul>
     </div>
 
-    <!-- ELSEWHERE -->
-    <h2 class="sec-head reveal" style="animation-delay:.5s">reach me</h2>
-    <div class="contact reveal" style="animation-delay:.54s">
-      <a class="chip" href="mailto:contact@chrishoward.fyi">email</a>
-      <a class="chip" href="https://github.com/ludakhris" target="_blank" rel="noopener">github</a>
-      <a class="chip" href="https://www.linkedin.com/in/christopherghoward/" target="_blank" rel="noopener">linkedin</a>
-      <a class="chip" href="https://chrishoward.gives">.gives</a>
+    <!-- FEATURED PROJECTS -->
+    <h2 class="sec-head reveal" id="projects">featured projects</h2>
+    <p class="sec-title reveal">Things I've built. <span class="dim">Each one started as someone's annoying problem.</span></p>
+    <div class="projects">
+
+      <article class="proj wide reveal">
+        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>interview-differently/README.md<span class="status">live</span></div>
+        <div class="proj-body">
+          <div class="cols">
+            <div>
+              <span class="proj-kicker">venture · edtech</span>
+              <h3>Interview Differently</h3>
+              <p class="hook" style="margin-top:8px">Career centers have 3 coaches for 5,000 students. This gives every student a realistic place to practice.</p>
+              <p style="margin-top:10px">AI-powered workplace simulations. Students make sequential decisions inside a live scenario, every choice branches the story, and they're scored across four competency dimensions with written feedback.</p>
+            </div>
+            <ul class="tracks" aria-label="Simulation tracks">
+              <li><b>Incident Response</b> · triage a P1 with 13 min to SLA breach</li>
+              <li><b>Business Case</b> · decide with real financials on the table</li>
+              <li><b>Risk &amp; Compliance</b> · regulatory flag, stakeholder map, clock running</li>
+            </ul>
+          </div>
+          <div class="tags">
+            <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">Claude API</span>
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://interviewdifferently.com" target="_blank" rel="noopener">interviewdifferently.com ↗</a>
+          <a href="https://github.com/ludakhris/interview-differently" target="_blank" rel="noopener">source ↗</a>
+        </div>
+      </article>
+
+      <article class="proj reveal">
+        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>audit-differently<span class="status wip">building</span></div>
+        <div class="proj-body">
+          <span class="proj-kicker">non-profit · compliance</span>
+          <h3>Audit Differently</h3>
+          <p class="hook">Be audit-ready on day one, not on audit day.</p>
+          <p>For bookkeepers at non-profits and training providers who report on grant money. Keeps the proof as you go across eight steps, from proposal to final audit package, so nobody rebuilds a year from email attachments.</p>
+          <div class="tags"><span class="tag">TypeScript</span><span class="tag">monorepo</span><span class="tag">Railway</span></div>
+        </div>
+        <div class="proj-links"><a href="https://github.com/chowworks/audit-differently" target="_blank" rel="noopener">source ↗</a></div>
+      </article>
+
+      <article class="proj reveal">
+        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>travel-hq<span class="status wip">building</span></div>
+        <div class="proj-body">
+          <span class="proj-kicker">consumer · group travel</span>
+          <h3>Travel HQ</h3>
+          <p class="hook">Get your trip out of the group chat.</p>
+          <p>A home base for the friend who plans the trip: a shareable trip page, who's in, and a running tab of who's paid. It tracks money but never touches it, so there are no processor fees.</p>
+          <div class="tags"><span class="tag">TypeScript</span><span class="tag">mobile-first</span><span class="tag">Railway</span></div>
+        </div>
+        <div class="proj-links"><a href="https://github.com/chowworks/crewcontrol" target="_blank" rel="noopener">source ↗</a></div>
+      </article>
+
+      <article class="proj reveal">
+        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>delaware-rebid-radar<span class="status">live data</span></div>
+        <div class="proj-body">
+          <span class="proj-kicker">civic · open data</span>
+          <h3>Delaware Rebid Radar</h3>
+          <p class="hook">Know when a state contract is coming back up before the bid posts.</p>
+          <p>Predicts re-solicitation windows from Delaware's open contract data, calibrated on 278 matched bids, so small and diverse businesses can get certified and ready in time.</p>
+          <div class="tags"><span class="tag">Next.js</span><span class="tag">open data</span><span class="tag">forecasting</span></div>
+        </div>
+        <div class="proj-links"><a href="https://github.com/chowworks/delaware-rebid-radar" target="_blank" rel="noopener">source ↗</a></div>
+      </article>
+
+      <article class="proj reveal">
+        <div class="tab"><span class="dots"><i></i><i></i><i></i></span>smart-four-advisor<span class="status">live</span></div>
+        <div class="proj-body">
+          <span class="proj-kicker">just for fun · game AI</span>
+          <h3>Smart Four Advisor</h3>
+          <p class="hook">Built to beat a board game's AI on hard mode.</p>
+          <p>A 3D connect-four move engine: minimax with alpha-beta pruning, fork detection, and alerts when the opponent is setting a trap. Runs beside the physical game.</p>
+          <div class="tags"><span class="tag">JavaScript</span><span class="tag">minimax</span><span class="tag">3D board</span></div>
+        </div>
+        <div class="proj-links">
+          <a href="https://www.mrchow.guru/smart-four-advisor/" target="_blank" rel="noopener">play it ↗</a>
+          <a href="https://github.com/ludakhris/smart-four-advisor" target="_blank" rel="noopener">source ↗</a>
+        </div>
+      </article>
+
     </div>
 
-    <footer class="reveal" style="animation-delay:.58s">
+    <!-- EXPERIENCE -->
+    <!-- TODO(chow): confirm dates for Amazon, Raytheon and NASA; only UMGC's start year is known. -->
+    <h2 class="sec-head reveal" id="experience">experience</h2>
+    <p class="sec-title reveal"><span style="font-family:var(--mono);font-size:.8em">$ git log --career</span></p>
+    <ol class="log reveal">
+      <li class="commit head">
+        <div class="meta"><span class="hash">a1f9c2e</span><span class="ref">(HEAD → main)</span><span>now</span></div>
+        <h3>Founder <span class="org">· Chow.Works, Interview Differently, Callback</span></h3>
+        <p>A DC studio building software for non-profits, education and small businesses, plus the coaching side: interview prep and career growth for engineers.</p>
+        <div class="tags"><span class="tag">product</span><span class="tag">AI</span><span class="tag">coaching</span></div>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">7d3e0b4</span><span>now</span></div>
+        <h3>Software Engineering Manager <span class="org">· Amazon</span></h3>
+        <p>Leading engineering teams: hiring, growing engineers and shipping at scale. It's also where I sit on the interviewer side of the table.</p>
+        <div class="tags"><span class="tag">leadership</span><span class="tag">hiring</span><span class="tag">distributed systems</span></div>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">5c81aa0</span><span>2015 → now</span></div>
+        <h3>Computer Science Professor <span class="org">· University of Maryland Global Campus</span></h3>
+        <p>Teaching undergraduate courses in OOP with Java, Python applications, advanced programming languages, web application security (OWASP Top 10), and software engineering principles.</p>
+        <div class="tags"><span class="tag">Java</span><span class="tag">Python</span><span class="tag">OWASP</span><span class="tag">SE principles</span></div>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">3b0e7f1</span><span>earlier</span></div>
+        <h3>Software Engineer <span class="org">· Raytheon</span></h3>
+        <p>Building software for defense systems.</p>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">0e4a2d9</span><span>first commit</span></div>
+        <h3>Software Engineer <span class="org">· NASA</span></h3>
+        <p>Where it started.</p>
+      </li>
+    </ol>
+
+    <!-- CLOSING CTA -->
+    <section class="cta reveal" id="contact" aria-labelledby="cta-h">
+      <p class="prompt"><b>chow@dc</b>:~$ ./whats-next</p>
+      <h2 id="cta-h">Got an idea that won't leave you alone, or <em>an interview on the calendar?</em></h2>
+      <p>Send me a few sentences. I'll tell you honestly whether I'm the right person and what the first step looks like.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="mailto:contact@chrishoward.fyi?subject=I%20have%20something%20to%20build">Pitch me your idea →</a>
+        <a class="btn" href="mailto:contact@chrishoward.fyi?subject=Interview%20coaching">Get interview coaching</a>
+      </div>
+      <div class="contact">
+        <a class="chip" href="mailto:contact@chrishoward.fyi">email</a>
+        <a class="chip" href="https://github.com/ludakhris" target="_blank" rel="noopener">github</a>
+        <a class="chip" href="https://www.linkedin.com/in/christopherghoward/" target="_blank" rel="noopener">linkedin</a>
+        <a class="chip" href="https://chow.works" target="_blank" rel="noopener">chow.works</a>
+        <a class="chip" href="https://callback.coach" target="_blank" rel="noopener">callback.coach</a>
+      </div>
+    </section>
+
+    <footer>
       <span>© <span id="yr"></span> Chris Howard</span>
       <a href="https://chrishoward.gives">// philanthropy → chrishoward.gives</a>
     </footer>
 
   </div>
-  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    // reveal sections as they scroll into view
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
 </body>
 </html>
