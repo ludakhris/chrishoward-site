@@ -296,6 +296,7 @@
   .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--bg-line); background: #11131a; }
   .shot img, .shot video { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .5s ease; }
   .proj:hover .shot img { transform: scale(1.025); }
+  .shot img.contain { object-fit: contain; object-position: center; background: #eef1f3; }
   .shot .emoji {
     position: absolute; right: 14px; bottom: 14px;
     width: 42px; height: 42px; display: grid; place-items: center;
@@ -506,7 +507,7 @@
         <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><b>25+</b><span>years shipping products and mission applications, from NASA and Raytheon to AWS</span></div>
         <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.8.3 5 2.7 5 5.8"/></svg></i><b>200+</b><span>engineers hired and upskilled through a program I built</span></div>
         <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l8 5H4l8-5Z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></i><b>18</b><span>agencies running on a platform I scaled from one team</span></div>
-        <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></svg></i><b>10+</b><span>years teaching computer science at colleges and universities</span></div>
+        <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></svg></i><b>11+</b><span>years teaching computer science at colleges and universities</span></div>
       </div>
     </section>
 
@@ -564,7 +565,7 @@
       </article>
 
       <article class="proj reveal">
-        <div class="shot"><img src="assets/projects/audit-differently.jpg" alt="Surprise federal audit, tomorrow at 9:00 AM" loading="lazy" width="960" height="600" /><span class="emoji" aria-hidden="true">🧾</span></div>
+        <div class="shot"><img src="assets/projects/audit-differently.jpg" alt="Audit Differently turning scattered records into an audit-ready package" loading="lazy" width="1000" height="829" class="contain" /></div>
         <div class="proj-body">
           <span class="proj-kicker">non-profit · compliance</span>
           <h3>Audit Differently</h3>
@@ -620,10 +621,6 @@
         <div class="meta"><span class="hash">3b0e7f1</span><span>2008 → 2017</span></div>
         <h3>Software Engineering Tech Lead <span class="org">· Raytheon</span></h3>
         <p>Scaled a mission platform from a single agency segment to 18 agencies.</p>
-      </li>
-      <li class="commit">
-        <div class="meta"><span class="hash">6e2b8d1</span><span class="ref">(tag: ph.d.-studies)</span><span>2008 → 2012</span></div>
-        <h3>Ph.D. studies, Computer Science <span class="org">· George Washington University</span></h3>
       </li>
       <li class="commit">
         <div class="meta"><span class="hash">4f1c7a3</span><span class="ref">(tag: m.s.)</span><span>2007</span></div>
