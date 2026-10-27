@@ -363,6 +363,40 @@
     .proj.wide .cols { grid-template-columns: 1fr; }
   }
 
+  /* ── smart four puzzle animation ── */
+  .k { --line: rgba(233,235,239,.16); --edge: rgba(233,235,239,.32); --lab: rgba(233,235,239,.34);
+    --w: #e9ebef; --wS: #e9ebef; --b: #2a2e3b; --bS: rgba(233,235,239,.35); --mv: #8e9bff; --th: #e8b873; --dot: transparent;
+    position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: .75fr 1.25fr; align-items: center; gap: 8px;
+    padding: 3% 4% 1% 6%; box-sizing: border-box; font-family: 'JetBrains Mono', ui-monospace, monospace; color: #e9ebef; overflow: hidden; }
+  .k .copy .eb { font-size: 11px; letter-spacing: .18em; color: rgba(233,235,239,.42); text-transform: uppercase; }
+  .k .copy h4 { margin: 0; font-family: Inter, system-ui, sans-serif; font-weight: 600; font-size: clamp(16px, 2.4vw, 22px); line-height: 1.12; letter-spacing: -.02em; }
+  .k .copy h4 em { font-style: normal; color: var(--mv); }
+  .k .copy .st { position: relative; margin-top: 12px; font-size: 11px; color: rgba(233,235,239,.5); min-height: 1.4em; }
+  .k .copy .st span { position: absolute; opacity: 0; animation: k-fade 8s infinite; }
+  .k .copy .st .s1 { animation-name: k-s1; } .k .copy .st .s2 { animation-name: k-s2; color: var(--mv); } .k .copy .st .s3 { animation-name: k-s3; color: var(--th); }
+  .k svg { width: 100%; height: auto; overflow: visible; }
+  .k .lab { font-size: 11px; fill: var(--lab); }
+  .k .grid { stroke: var(--line); stroke-width: 1; } .k .grid.edge { stroke: var(--edge); stroke-width: 1.5; }
+  .k .dot { fill: var(--dot); }
+  .k .pc { transform-box: fill-box; transform-origin: center; animation: k-drop 8s infinite both; }
+  .k .pc.w { fill: var(--w); stroke: var(--wS); stroke-width: 2; }
+  .k .pc.b { fill: var(--b); stroke: var(--bS); stroke-width: 2; }
+  .k .ring { fill: none; stroke: var(--mv); stroke-width: 2; stroke-dasharray: 5 5; transform-box: fill-box; transform-origin: center; animation: k-ring 8s infinite both; }
+  .k .pc.move { fill: var(--mv); stroke: var(--mv); stroke-width: 2; animation: k-move 8s infinite both; }
+  .k .threat { stroke: var(--th); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 260; stroke-dashoffset: 260; animation: k-line 8s infinite both; opacity: .9; }
+  .k .threat.t2 { animation-delay: .35s; }
+  .k .ghost { fill: none; stroke: var(--th); stroke-width: 2; stroke-dasharray: 4 4; opacity: 0; animation: k-ghost 8s infinite both; }
+  .k .bang { font-size: 16px; font-weight: 700; fill: var(--th); opacity: 0; animation: k-ghost 8s infinite both; }
+  .k .ghost.t2, .k .bang.t2 { animation-delay: .35s; }
+  @keyframes k-drop { 0% { opacity: 0; transform: translateY(-14px) scale(.9); } 4% { opacity: 1; transform: none; } 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  @keyframes k-ring { 0%, 34% { opacity: 0; transform: scale(.7); } 38% { opacity: 1; transform: scale(1); } 44% { transform: scale(1.12); } 50% { transform: scale(1); opacity: 1; } 54%, 100% { opacity: 0; } }
+  @keyframes k-move { 0%, 52% { opacity: 0; transform: translateY(-14px) scale(.9); } 56% { opacity: 1; transform: none; } 92% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes k-line { 0%, 58% { stroke-dashoffset: 260; opacity: .9; } 68% { stroke-dashoffset: 0; } 92% { stroke-dashoffset: 0; opacity: .9; } 100% { opacity: 0; } }
+  @keyframes k-ghost { 0%, 66% { opacity: 0; } 70%, 92% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes k-s1 { 0%, 4% { opacity: 0; } 8%, 34% { opacity: 1; } 37%, 100% { opacity: 0; } }
+  @keyframes k-s2 { 0%, 37% { opacity: 0; } 40%, 62% { opacity: 1; } 65%, 100% { opacity: 0; } }
+  @keyframes k-s3 { 0%, 65% { opacity: 0; } 68%, 92% { opacity: 1; } 96%, 100% { opacity: 0; } }
+
   /* ── experience: git log ── */
   .log { position: relative; list-style: none; }
   .log::before {
@@ -577,7 +611,7 @@
       </article>
 
       <article class="proj reveal">
-        <div class="shot"><img src="assets/projects/smart-four-advisor.jpg" alt="Puzzle diagram: your move, spot the trap on a 5 by 5 Smart Four board" loading="lazy" width="1440" height="900" /></div>
+        <div class="shot"><div class="k" style="background:#0f1117"><div class="copy"><h4>Your move.<br><em>Spot the trap.</em></h4><div class="st"><span class="s1">reading board…</span><span class="s2">best move: C4</span><span class="s3">fork: 2 threats</span></div></div><svg viewBox="0 0 432 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated Smart Four puzzle: the advisor finds a move that makes two threats at once"><text class="lab" x="88.0" y="26" text-anchor="middle">A</text><text class="lab" x="152.0" y="26" text-anchor="middle">B</text><text class="lab" x="216.0" y="26" text-anchor="middle">C</text><text class="lab" x="280.0" y="26" text-anchor="middle">D</text><text class="lab" x="344.0" y="26" text-anchor="middle">E</text><text class="lab" x="38" y="76.0" text-anchor="middle">1</text><text class="lab" x="38" y="140.0" text-anchor="middle">2</text><text class="lab" x="38" y="204.0" text-anchor="middle">3</text><text class="lab" x="38" y="268.0" text-anchor="middle">4</text><text class="lab" x="38" y="332.0" text-anchor="middle">5</text><line class="grid edge" x1="56" y1="40" x2="56" y2="360"/><line class="grid edge" x1="56" y1="40" x2="376" y2="40"/><line class="grid" x1="120" y1="40" x2="120" y2="360"/><line class="grid" x1="56" y1="104" x2="376" y2="104"/><line class="grid" x1="184" y1="40" x2="184" y2="360"/><line class="grid" x1="56" y1="168" x2="376" y2="168"/><line class="grid" x1="248" y1="40" x2="248" y2="360"/><line class="grid" x1="56" y1="232" x2="376" y2="232"/><line class="grid" x1="312" y1="40" x2="312" y2="360"/><line class="grid" x1="56" y1="296" x2="376" y2="296"/><line class="grid edge" x1="376" y1="40" x2="376" y2="360"/><line class="grid edge" x1="56" y1="360" x2="376" y2="360"/><circle class="dot" cx="56" cy="40" r="1.6"/><circle class="dot" cx="56" cy="104" r="1.6"/><circle class="dot" cx="56" cy="168" r="1.6"/><circle class="dot" cx="56" cy="232" r="1.6"/><circle class="dot" cx="56" cy="296" r="1.6"/><circle class="dot" cx="56" cy="360" r="1.6"/><circle class="dot" cx="120" cy="40" r="1.6"/><circle class="dot" cx="120" cy="104" r="1.6"/><circle class="dot" cx="120" cy="168" r="1.6"/><circle class="dot" cx="120" cy="232" r="1.6"/><circle class="dot" cx="120" cy="296" r="1.6"/><circle class="dot" cx="120" cy="360" r="1.6"/><circle class="dot" cx="184" cy="40" r="1.6"/><circle class="dot" cx="184" cy="104" r="1.6"/><circle class="dot" cx="184" cy="168" r="1.6"/><circle class="dot" cx="184" cy="232" r="1.6"/><circle class="dot" cx="184" cy="296" r="1.6"/><circle class="dot" cx="184" cy="360" r="1.6"/><circle class="dot" cx="248" cy="40" r="1.6"/><circle class="dot" cx="248" cy="104" r="1.6"/><circle class="dot" cx="248" cy="168" r="1.6"/><circle class="dot" cx="248" cy="232" r="1.6"/><circle class="dot" cx="248" cy="296" r="1.6"/><circle class="dot" cx="248" cy="360" r="1.6"/><circle class="dot" cx="312" cy="40" r="1.6"/><circle class="dot" cx="312" cy="104" r="1.6"/><circle class="dot" cx="312" cy="168" r="1.6"/><circle class="dot" cx="312" cy="232" r="1.6"/><circle class="dot" cx="312" cy="296" r="1.6"/><circle class="dot" cx="312" cy="360" r="1.6"/><circle class="dot" cx="376" cy="40" r="1.6"/><circle class="dot" cx="376" cy="104" r="1.6"/><circle class="dot" cx="376" cy="168" r="1.6"/><circle class="dot" cx="376" cy="232" r="1.6"/><circle class="dot" cx="376" cy="296" r="1.6"/><circle class="dot" cx="376" cy="360" r="1.6"/><circle class="pc w" style="animation-delay:0.15s" cx="88.0" cy="264.0" r="22"/><circle class="pc b" style="animation-delay:0.31s" cx="152.0" cy="136.0" r="22"/><circle class="pc w" style="animation-delay:0.47s" cx="152.0" cy="264.0" r="22"/><circle class="pc b" style="animation-delay:0.63s" cx="280.0" cy="136.0" r="22"/><circle class="pc w" style="animation-delay:0.79s" cx="216.0" cy="136.0" r="22"/><circle class="pc b" style="animation-delay:0.95s" cx="344.0" cy="200.0" r="22"/><circle class="pc w" style="animation-delay:1.11s" cx="216.0" cy="200.0" r="22"/><circle class="pc b" style="animation-delay:1.27s" cx="280.0" cy="200.0" r="22"/><circle class="pc w" style="animation-delay:1.43s" cx="344.0" cy="72.0" r="22"/><circle class="pc b" style="animation-delay:1.59s" cx="152.0" cy="328.0" r="22"/><circle class="pc b" style="animation-delay:1.75s" cx="344.0" cy="328.0" r="22"/><line class="threat t1" x1="88.0" y1="264.0" x2="280.0" y2="264.0"/><line class="threat t2" x1="216.0" y1="136.0" x2="216.0" y2="328.0"/><circle class="ring" cx="216.0" cy="264.0" r="24"/><circle class="pc move" cx="216.0" cy="264.0" r="22"/><circle class="ghost t1" cx="280.0" cy="264.0" r="20"/><text class="bang t1" x="280.0" y="270.0" text-anchor="middle">!</text><circle class="ghost t2" cx="216.0" cy="328.0" r="20"/><text class="bang t2" x="216.0" y="334.0" text-anchor="middle">!</text></svg></div></div>
         <div class="proj-body">
           <span class="proj-kicker">just for fun · game AI</span>
           <h3>Smart Four Advisor</h3>
