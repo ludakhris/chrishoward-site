@@ -432,8 +432,16 @@
     color: var(--muted);
     font-family: var(--mono); font-size: 11px; font-weight: 700;
   }
+  .org-logo.stack { background: none; border-radius: 0; }
+  .org-logo.stack img {
+    position: absolute; border-radius: 7px; object-fit: cover; background: #fff;
+  }
+  .org-logo.stack img:first-child { left: 0; top: 0; width: 38px; height: 38px; }
+  .org-logo.stack img:last-child { right: -12px; bottom: -10px; width: 24px; height: 24px; border-radius: 6px; box-shadow: 0 0 0 3px var(--bg); }
   .commit:has(.org-logo) { padding-left: 94px; }
   @media (max-width: 680px) {
+    .org-logo.stack img:first-child { width: 30px; height: 30px; }
+    .org-logo.stack img:last-child { right: -9px; bottom: -8px; width: 19px; height: 19px; border-radius: 5px; box-shadow: 0 0 0 2px var(--bg); }
     .org-logo { width: 34px; height: 34px; left: 28px; border-radius: 8px; }
     .org-logo.txt { font-size: 9px; }
     .commit:has(.org-logo) { padding-left: 74px; }
@@ -670,7 +678,7 @@
         <p>Led an award-winning, first-in-agency cloud migration and grew the program 3x.</p>
       </li>
       <li class="commit">
-        <img class="org-logo" src="assets/logos/umgc.jpg" alt="UMGC" width="44" height="44" loading="lazy" />
+        <span class="org-logo stack"><img src="assets/logos/umgc.jpg" alt="UMGC" width="32" height="32" loading="lazy" /><img src="assets/logos/pgcc.jpg" alt="Prince George's Community College" width="32" height="32" loading="lazy" /></span>
         <div class="meta"><span class="hash">5c81aa0</span><span>2015 → now</span></div>
         <h3>Associate Professor <span class="org">· UMGC, Prince George's CC, Howard CC</span></h3>
         <p>Teaching Java, Python, secure web applications and software engineering to the next wave of developers.</p>
