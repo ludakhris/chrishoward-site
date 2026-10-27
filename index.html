@@ -418,6 +418,26 @@
     border: 2px solid var(--muted-2);
   }
   .commit h3 .dim { color: var(--muted-2); font-weight: 400; }
+  .org-logo {
+    position: absolute; left: 34px; top: 2px;
+    width: 44px; height: 44px;
+    border-radius: 9px;
+    object-fit: cover;
+    background: #fff;
+  }
+  .org-logo.txt {
+    display: grid; place-items: center;
+    background: var(--bg-2);
+    border: 1px solid var(--bg-line-2);
+    color: var(--muted);
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+  }
+  .commit:has(.org-logo) { padding-left: 94px; }
+  @media (max-width: 680px) {
+    .org-logo { width: 34px; height: 34px; left: 28px; border-radius: 8px; }
+    .org-logo.txt { font-size: 9px; }
+    .commit:has(.org-logo) { padding-left: 74px; }
+  }
   .commit.head::before { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px var(--accent-a); }
   .meta { font-family: var(--mono); font-size: 12px; color: var(--muted-2); display: flex; flex-wrap: wrap; gap: 4px 12px; }
   .meta .hash { color: var(--amber); }
@@ -632,44 +652,53 @@
     <p class="sec-title reveal"><span style="font-family:var(--mono);font-size:.8em">$ git log --career</span></p>
     <ol class="log reveal">
       <li class="commit head">
+        <img class="org-logo" src="assets/logos/aws.png" alt="Amazon Web Services" width="44" height="44" loading="lazy" />
         <div class="meta"><span class="hash">7d3e0b4</span><span class="ref">(HEAD → main)</span><span>2022 → now</span></div>
         <h3>Software Development Manager <span class="org">· Amazon Web Services</span></h3>
         <p>Lead cloud teams of up to 31 and built the hiring and training program behind 200+ engineers.</p>
       </li>
       <li class="commit">
+        <img class="org-logo" src="assets/logos/chowworks.png" alt="Chow.Works" width="44" height="44" loading="lazy" />
         <div class="meta"><span class="hash">a1f9c2e</span><span class="ref">(branch: ventures)</span><span>2021 → now</span></div>
         <h3>Founder <span class="org">· Chow.Works</span></h3>
         <p>Software for schools, government, nonprofits, and the people who run them.</p>
       </li>
       <li class="commit">
+        <img class="org-logo" src="assets/logos/clarity.png" alt="Clarity Business Solutions" width="44" height="44" loading="lazy" />
         <div class="meta"><span class="hash">c42d9e1</span><span>2017 → 2022</span></div>
         <h3>Director of Cloud Platforms <span class="org">· Clarity Business Solutions</span></h3>
         <p>Led an award-winning, first-in-agency cloud migration and grew the program 3x.</p>
       </li>
       <li class="commit">
+        <img class="org-logo" src="assets/logos/umgc.png" alt="UMGC" width="44" height="44" loading="lazy" />
         <div class="meta"><span class="hash">5c81aa0</span><span>2015 → now</span></div>
         <h3>Adjunct Professor <span class="org">· UMGC, Prince George's CC, Howard CC</span></h3>
         <p>Teaching Java, Python, secure web applications and software engineering to the next wave of developers.</p>
       </li>
       <li class="commit">
+        <span class="org-logo txt" aria-hidden="true">R</span>
         <div class="meta"><span class="hash">3b0e7f1</span><span>2008 → 2017</span></div>
         <h3>Software Engineering Tech Lead <span class="org">· Raytheon</span></h3>
         <p>Scaled a mission platform from a single agency segment to 18 agencies.</p>
       </li>
       <li class="commit">
+        <span class="org-logo txt" aria-hidden="true">GW</span>
         <div class="meta"><span class="hash">4f1c7a3</span><span class="ref">(tag: m.s.)</span><span>2007</span></div>
         <h3>M.S., Computer Science <span class="org">· George Washington University</span></h3>
       </li>
       <li class="commit">
+        <span class="org-logo txt" aria-hidden="true">L3</span>
         <div class="meta"><span class="hash">9a6f3c2</span><span>2005 → 2008</span></div>
         <h3>Senior Software Engineer <span class="org">· L-3 Communications</span></h3>
         <p>Built real-time, worldwide distributed data platforms in C, C++ and Java.</p>
       </li>
       <li class="commit">
+        <span class="org-logo txt" aria-hidden="true">UMBC</span>
         <div class="meta"><span class="hash">2d9e5b0</span><span class="ref">(tag: b.s.)</span><span>2004</span></div>
         <h3>B.S., Computer Engineering <span class="org">· UMBC</span></h3>
       </li>
       <li class="commit">
+        <span class="org-logo txt" aria-hidden="true">NASA</span>
         <div class="meta"><span class="hash">0e4a2d9</span><span>1999 → 2004 · first commit</span></div>
         <h3>Software Engineer <span class="org">· NASA Goddard Space Flight Center</span></h3>
         <p>Data and visualization systems for scientists on the Polar, Wind and Geotail satellite missions.</p>
