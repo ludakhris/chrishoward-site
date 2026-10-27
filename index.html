@@ -312,8 +312,8 @@
   .proj.wide .tracks li { flex: 1 1 200px; }
   @media (min-width: 761px) {
     .proj.wide .split { flex-direction: row; align-items: stretch; }
-    .proj.wide .shot { flex: 0 0 44%; aspect-ratio: auto; border-bottom: 0; border-right: 1px solid var(--bg-line); display: flex; align-items: center; background: #f6f7f4; }
-    .proj.wide .shot img { height: auto; }
+    .proj.wide .shot { flex: 0 0 46%; aspect-ratio: auto; border-bottom: 0; border-right: 1px solid var(--bg-line); }
+    .proj.wide .shot img { position: absolute; inset: 0; object-fit: cover; object-position: center top; }
     .proj.wide .tracks { flex-direction: column; }
     .proj.wide .tracks li { flex: none; }
   }
@@ -613,7 +613,7 @@
       <article class="proj wide reveal">
         <div class="tab"><span class="dots"><i></i><i></i><i></i></span>learn-differently<span class="status">live</span></div>
         <div class="split">
-          <div class="shot"><img src="assets/projects/learn-differently.jpg" alt="Learn Differently: training that adapts, admin work automated" loading="lazy" width="1200" height="630" /></div>
+          <div class="shot"><picture><source media="(min-width: 761px)" srcset="assets/projects/learn-differently-portrait.jpg" /><img src="assets/projects/learn-differently.jpg" alt="Learn Differently: training that adapts, admin work automated" loading="lazy" width="1200" height="630" /></picture></div>
           <div class="proj-body">
             <span class="proj-kicker">🎓 edtech · workforce</span>
             <h3>Learn Differently</h3>
