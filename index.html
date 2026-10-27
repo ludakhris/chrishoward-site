@@ -219,17 +219,16 @@
             background-clip: text;
     color: transparent;
   }
-  .stat span { display: block; margin-top: 10px; font-size: 0.84rem; color: var(--muted); line-height: 1.45; }
-  .wins { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  .wins li {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    padding: 7px 11px;
-    border: 1px solid var(--bg-line);
-    border-radius: 999px;
+  .stat .ico {
+    display: grid; place-items: center;
+    width: 34px; height: 34px; margin-bottom: 14px;
+    border-radius: 9px;
+    color: var(--accent);
+    background: var(--accent-a);
+    border: 1px solid rgba(142,155,255,0.25);
   }
-  .wins li::before { content: '✓ '; color: var(--green); }
+  .stat .ico svg { width: 18px; height: 18px; }
+  .stat span { display: block; margin-top: 10px; font-size: 0.84rem; color: var(--muted); line-height: 1.45; }
   .marquee {
     position: relative;
     margin-top: 22px;
@@ -312,10 +311,10 @@
   .proj:hover { border-color: rgba(142,155,255,0.45); transform: translateY(-2px); box-shadow: 0 18px 40px -24px rgba(142,155,255,0.45); }
   .proj.wide { grid-column: span 2; }
   .shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--bg-line); background: #11131a; }
-  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .5s ease; }
+  .shot img, .shot video { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .5s ease; }
   .proj:hover .shot img { transform: scale(1.025); }
   .shot .emoji {
-    position: absolute; left: 14px; bottom: 14px;
+    position: absolute; right: 14px; bottom: 14px;
     width: 42px; height: 42px; display: grid; place-items: center;
     font-size: 22px;
     border-radius: 11px;
@@ -323,9 +322,10 @@
     border: 1px solid var(--bg-line-2);
     -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   }
-  .proj.wide .shot { aspect-ratio: auto; height: 100%; min-height: 300px; border-bottom: 0; border-left: 1px solid var(--bg-line); }
-  .proj.wide .shot img { object-position: left top; }
-  .proj.wide .split { display: grid; grid-template-columns: 1fr 1.1fr; flex: 1; }
+  .proj.wide .shot { aspect-ratio: 1200 / 630; }
+  .proj.wide .split { display: flex; flex-direction: column; flex: 1; }
+  .proj.wide .tracks { flex-direction: row; flex-wrap: wrap; }
+  .proj.wide .tracks li { flex: 1 1 200px; }
   .tab {
     display: flex;
     align-items: center;
@@ -377,8 +377,6 @@
     .projects { grid-template-columns: 1fr; }
     .proj.wide { grid-column: auto; }
     .proj.wide .cols { grid-template-columns: 1fr; }
-    .proj.wide .split { grid-template-columns: 1fr; }
-    .proj.wide .shot { order: -1; min-height: 0; aspect-ratio: 16 / 10; border-left: 0; border-bottom: 1px solid var(--bg-line); }
   }
 
   /* ── experience: git log ── */
@@ -406,7 +404,7 @@
   .meta .hash { color: var(--amber); }
   .meta .ref { color: var(--accent); }
   .commit h3 { margin-top: 4px; font-size: 1.08rem; font-weight: 600; letter-spacing: -0.01em; }
-  .commit h3 .org { color: var(--muted); font-weight: 500; }
+  .commit h3 .org { color: var(--accent); font-weight: 500; }
   .commit p { margin-top: 6px; font-size: 0.92rem; color: var(--muted); line-height: 1.6; max-width: 62ch; }
   .commit .tags { padding-top: 10px; }
 
@@ -512,7 +510,7 @@
       <p class="eyebrow"><span class="slash">//</span> builder · coach · professor · washington, dc</p>
       <h1 class="name">Chris<br>Howard<span class="cursor" aria-hidden="true"></span></h1>
       <p class="tagline">I build software — <em>and the engineers who build it.</em></p>
-      <p class="sub">Software Development Manager at AWS with 20+ years of building software, from NASA Goddard to Raytheon to the cloud. I teach computer science at UMGC, have taught at Prince George's and Howard Community Colleges and with Code Differently, and lead interview prep for Amazon's Black Employee Network. Through Chow.Works I turn rough ideas into working products for education, non-profits and small businesses.</p>
+      <p class="sub">Software Development Manager at AWS with 25+ years of building software, from NASA Goddard to Raytheon to the cloud. I teach computer science at UMGC, have taught at Prince George's and Howard Community Colleges and with Code Differently, and lead interview prep for Amazon's Black Employee Network. Through Chow.Works I turn rough ideas into working products for education, non-profits and small businesses.</p>
       <div class="hero-cta">
         <a class="btn primary" href="mailto:contact@chrishoward.fyi?subject=Ship%20my%20idea">./ship-my-idea →</a>
         <a class="btn" href="mailto:contact@chrishoward.fyi?subject=Help%20me%20land%20the%20offer">./land-the-offer</a>
@@ -522,17 +520,11 @@
     <!-- IMPACT -->
     <section class="impact reveal" aria-label="Impact">
       <div class="stats">
-        <div class="stat"><b>20+</b><span>years shipping software, NASA to AWS</span></div>
-        <div class="stat"><b>200+</b><span>engineers hired and upskilled through a program I built</span></div>
-        <div class="stat"><b>13</b><span>first-of-their-kind cloud launches, region builds 38% faster</span></div>
-        <div class="stat"><b>18</b><span>agencies running on a platform I scaled from one team</span></div>
+        <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><b>25+</b><span>years shipping software, NASA to AWS</span></div>
+        <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.8.3 5 2.7 5 5.8"/></svg></i><b>200+</b><span>engineers hired and upskilled through a program I built</span></div>
+        <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3l8 5H4l8-5Z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></i><b>18</b><span>agencies running on a platform I scaled from one team</span></div>
+        <div class="stat"><i class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></i><b>40%</b><span>of a company's revenue from the AWS practice I built</span></div>
       </div>
-      <ul class="wins">
-        <li>award-winning first-in-agency cloud migration</li>
-        <li>grew a federal program 3x</li>
-        <li>built an AWS practice to 40% of company revenue</li>
-        <li>e-signature platform: 5 → ~2,000 agreements</li>
-      </ul>
       <div class="marquee" aria-hidden="true">
         <div class="marquee-track">
           <span>NASA Goddard</span><span>L-3 Communications</span><span>Raytheon</span><span>Clarity</span><span>Amazon Web Services</span><span>UMGC</span><span>PGCC</span><span>Howard CC</span><span>Code Differently</span><span>Chow.Works</span>
@@ -573,18 +565,20 @@
       <article class="proj wide reveal">
         <div class="tab"><span class="dots"><i></i><i></i><i></i></span>learn-differently<span class="status">live</span></div>
         <div class="split">
+          <div class="shot"><img src="assets/projects/learn-differently.jpg" alt="Learn Differently: training that adapts, admin work automated" loading="lazy" width="1200" height="630" /></div>
           <div class="proj-body">
             <span class="proj-kicker">🎓 edtech · workforce</span>
             <h3>Learn Differently</h3>
-            <p class="hook">Training that behaves like the job.</p>
+            <p class="hook">For workforce programs buried in spreadsheets and funder reports.</p>
             <p>One learner record behind five products: an LMS, micro-learning, AI-scored job simulations, job matching and talent placement. Training programs see skill gains, credentials and job-readiness in one place instead of a pile of spreadsheets.</p>
-            <ul class="tracks" aria-label="Simulations">
-              <li><b>🚨 Incident Response</b> · triage a P1 with 13 min to SLA breach</li>
-              <li><b>📊 Business Case</b> · decide with real financials on the table</li>
+            <ul class="tracks" aria-label="How it works">
+              <li><b>📚 Learn</b> · a three-minute lesson on one skill</li>
+              <li><b>🤖 Practice</b> · real work alongside an AI agent</li>
+              <li><b>✅ Prove</b> · scored on the spot, a verified skill on the record</li>
             </ul>
             <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">Claude API</span><span class="tag">LTI</span></div>
           </div>
-          <div class="shot"><img src="assets/projects/learn-differently.jpg" alt="Learn Differently homepage: Training that behaves like the job" loading="lazy" width="1200" height="750" /></div>
+
         </div>
         <div class="proj-links">
           <a href="https://learndifferently.tech" target="_blank" rel="noopener">learndifferently.tech ↗</a>
@@ -593,7 +587,7 @@
       </article>
 
       <article class="proj reveal">
-        <div class="shot"><img src="assets/projects/audit-differently.jpg" alt="Audit Differently month-end page with blocking checks" loading="lazy" width="800" height="500" /><span class="emoji" aria-hidden="true">🧾</span></div>
+        <div class="shot"><video src="assets/projects/audit-differently.mp4" poster="assets/projects/audit-differently.jpg" autoplay muted loop playsinline preload="none" aria-label="Audit Differently: records checked as they come in, then locked in an encrypted audit package"></video><span class="emoji" aria-hidden="true">🧾</span></div>
         <div class="proj-body">
           <span class="proj-kicker">non-profit · compliance</span>
           <h3>Audit Differently</h3>
@@ -626,16 +620,16 @@
     <p class="sec-title reveal"><span style="font-family:var(--mono);font-size:.8em">$ git log --career</span></p>
     <ol class="log reveal">
       <li class="commit head">
-        <div class="meta"><span class="hash">a1f9c2e</span><span class="ref">(HEAD → main)</span><span>now</span></div>
-        <h3>Founder <span class="org">· Chow.Works, Interview Differently, Callback</span></h3>
-        <p>A DC studio building software for education, non-profits and small businesses, plus the coaching side: interview prep and career growth for engineers.</p>
-        <div class="tags"><span class="tag">product</span><span class="tag">AI</span><span class="tag">coaching</span></div>
-      </li>
-      <li class="commit">
-        <div class="meta"><span class="hash">7d3e0b4</span><span>2022 → now</span></div>
+        <div class="meta"><span class="hash">7d3e0b4</span><span class="ref">(HEAD → main)</span><span>2022 → now</span></div>
         <h3>Software Development Manager <span class="org">· Amazon Web Services</span></h3>
         <p>Led a tiger team to 13 first-of-their-kind cloud automation launches and cut region build times 38%. Built a hiring and training program for 200+ engineers and lead teams of up to 31.</p>
         <div class="tags"><span class="tag">AWS</span><span class="tag">leadership</span><span class="tag">hiring</span></div>
+      </li>
+      <li class="commit">
+        <div class="meta"><span class="hash">a1f9c2e</span><span class="ref">(branch: ventures)</span><span>2021 → now</span></div>
+        <h3>Founder <span class="org">· Chow.Works, Interview Differently, Callback</span></h3>
+        <p>A DC studio building software for education, non-profits and small businesses, plus the coaching side: interview prep and career growth for engineers.</p>
+        <div class="tags"><span class="tag">product</span><span class="tag">AI</span><span class="tag">coaching</span></div>
       </li>
       <li class="commit">
         <div class="meta"><span class="hash">c42d9e1</span><span>2017 → 2022</span></div>
@@ -671,7 +665,7 @@
     <!-- CLOSING CTA -->
     <section class="cta reveal" id="contact" aria-labelledby="cta-h">
       <p class="prompt"><b>chow@dc</b>:~$ ./whats-next</p>
-      <h2 id="cta-h">Bring the idea. <em>Or the interview.</em></h2>
+      <h2 id="cta-h">Bring the idea, and we'll build it together. <em>Or bring the interview, and nail it.</em></h2>
       <p>A few sentences is enough. You'll get an honest answer and a first step.</p>
       <div class="hero-cta">
         <a class="btn primary" href="mailto:contact@chrishoward.fyi?subject=Ship%20my%20idea">./ship-my-idea →</a>
@@ -695,6 +689,10 @@
   </div>
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
+    // respect reduced motion for the project video
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('video[autoplay]').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
+    }
     // reveal sections as they scroll into view
     (function () {
       var els = document.querySelectorAll('.reveal');
